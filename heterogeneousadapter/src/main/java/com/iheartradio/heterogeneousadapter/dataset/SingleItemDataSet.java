@@ -1,14 +1,14 @@
 package com.iheartradio.heterogeneousadapter.dataset;
 
-public final class ItemDataSet<T> implements DataSet<T> {
+public final class SingleItemDataSet<T> implements DataSet<T> {
 
     private final T mT;
 
-    public static <T> ItemDataSet<T> of(final T t) {
-        return new ItemDataSet(t);
+    public static <T> SingleItemDataSet<T> of(final T t) {
+        return new SingleItemDataSet(t);
     }
 
-    public ItemDataSet(final T t) {
+    public SingleItemDataSet(final T t) {
         mT = t;
     }
 

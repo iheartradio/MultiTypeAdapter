@@ -23,4 +23,12 @@ public abstract class HeterogeneousBinder<D, V extends RecyclerView.ViewHolder> 
     public int getSpan() {
         return DEFAULT_SPAN;
     }
+
+    public boolean areItemsTheSame(final D oldData, final D newData) {
+        return false;
+    }
+
+    public boolean areContentsTheSame(final D oldData, final D newData) {
+        return false;
+    }
 }

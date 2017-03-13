@@ -1,5 +1,6 @@
 package com.iheartradio.heterogeneousadapter;
 
+import android.support.v7.util.DiffUtil;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.ViewGroup;
@@ -20,34 +21,40 @@ public class HeterogeneousAdapter extends RecyclerView.Adapter<ViewHolder> {
 
     private final List<HeterogeneousBinder<?, ?>> mHeterogeneousBinders;
     private DataSet<?> mData = new EmptyDataSet<>();
-
+    private boolean mCalcDiff = false;
 
     public HeterogeneousAdapter(final List<HeterogeneousBinder<?, ?>> heterogeneousBinders) {
-        //Validate.argNotNull(heterogeneousBinders, "heterogeneousBinders");
         mHeterogeneousBinders = new ArrayList<>(heterogeneousBinders);
     }
 
     public HeterogeneousAdapter(final HeterogeneousBinder<?, ?> heterogeneousBinder) {
-        //Validate.argNotNull(heterogeneousBinder, "heterogeneousBinder");
         mHeterogeneousBinders = new ArrayList<>();
         mHeterogeneousBinders.add(heterogeneousBinder);
     }
 
     public void setData(final DataSet<?> data) {
-        //Validate.argNotNull(data, "data");
+        if (mCalcDiff) {
+            DiffUtil.DiffResult diffResult = DiffUtil.calculateDiff(new HeterogeneousBinderDiffCallback(this, data));
+            mData = data;
+            diffResult.dispatchUpdatesTo(this);
+        } else {
+            // do nothing if data is not actually changed
+            if (mData == data) {
+                return;
+            }
 
-        // do nothing if data is not actually changed
-        if (mData == data) {
-            return;
+            mData = data;
+
+            notifyDataSetChanged();
         }
-
-        mData = data;
-
-        notifyDataSetChanged();
     }
 
     public DataSet<?> dataSet() {
         return mData;
+    }
+
+    public void calcDiff(final boolean calcDiff) {
+        mCalcDiff = calcDiff;
     }
 
     @Override
@@ -58,7 +65,7 @@ public class HeterogeneousAdapter extends RecyclerView.Adapter<ViewHolder> {
     @SuppressWarnings("unchecked")
     @Override
     public void onBindViewHolder(final ViewHolder genericHolder, final int position) {
-        HeterogeneousBinder<Object, ViewHolder> binder = heterogeneousBinderForData(mData.get(position));
+        HeterogeneousBinder<Object, ViewHolder> binder = getBinderForPosition(position);
         if (binder != null) {
             binder.onBindViewHolder(genericHolder, mData.get(position));
         }
@@ -99,7 +106,7 @@ public class HeterogeneousAdapter extends RecyclerView.Adapter<ViewHolder> {
             }
         }
 
-        throw new NullPointerException();
+        throw new RuntimeException("Could not find binder for data type: " + data.getClass().getSimpleName());
     }
 
     private Integer heterogeneousBinderIndexFor(final Object data) {
@@ -109,10 +116,14 @@ public class HeterogeneousAdapter extends RecyclerView.Adapter<ViewHolder> {
             }
         }
 
-        throw new NullPointerException();
+        throw new RuntimeException("Could not find binder index for data type: " + data.getClass().getSimpleName());
     }
 
-    public int getSpanForIndex(final int index) {
-        return heterogeneousBinderForData(mData.get(index)).getSpan();
+    public int getSpanForPosition(final int position) {
+        return heterogeneousBinderForData(mData.get(position)).getSpan();
+    }
+
+    public HeterogeneousBinder<Object, ViewHolder> getBinderForPosition(final int position) {
+        return heterogeneousBinderForData(mData.get(position));
     }
 }

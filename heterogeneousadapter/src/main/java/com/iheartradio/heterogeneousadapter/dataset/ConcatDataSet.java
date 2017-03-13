@@ -117,10 +117,10 @@ public final class ConcatDataSet<T> implements DataSet<T> {
             List<DataSet<?>> dataSetList = new ArrayList<>();
             for (int i = 0; i < slaveToInsertInto.size(); i++) {
                 if (i == actualIndex) {
-                    dataSetList.add(new ItemDataSet<>(data));
-                    dataSetList.add(new ItemDataSet<>(slaveToInsertInto.get(i)));
+                    dataSetList.add(new SingleItemDataSet<>(data));
+                    dataSetList.add(new SingleItemDataSet<>(slaveToInsertInto.get(i)));
                 } else {
-                    dataSetList.add(new ItemDataSet<>(slaveToInsertInto.get(i)));
+                    dataSetList.add(new SingleItemDataSet<>(slaveToInsertInto.get(i)));
                 }
             }
             int indexToReplace = mSlaves.indexOf(slaveToInsertInto);
