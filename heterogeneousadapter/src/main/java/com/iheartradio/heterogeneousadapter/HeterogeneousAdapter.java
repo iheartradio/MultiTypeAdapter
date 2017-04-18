@@ -19,17 +19,16 @@ import static android.support.v7.widget.RecyclerView.*;
 
 public class HeterogeneousAdapter extends RecyclerView.Adapter<ViewHolder> {
 
-    private final List<HeterogeneousBinder<?, ?>> mHeterogeneousBinders;
+    private BinderHandler mBinderHandler;
     private DataSet<?> mData = new EmptyDataSet<>();
     private boolean mCalcDiff = false;
 
     public HeterogeneousAdapter(final List<HeterogeneousBinder<?, ?>> heterogeneousBinders) {
-        mHeterogeneousBinders = new ArrayList<>(heterogeneousBinders);
+        mBinderHandler = new BinderHandler(heterogeneousBinders);
     }
 
     public HeterogeneousAdapter(final HeterogeneousBinder<?, ?> heterogeneousBinder) {
-        mHeterogeneousBinders = new ArrayList<>();
-        mHeterogeneousBinders.add(heterogeneousBinder);
+        mBinderHandler = new BinderHandler(heterogeneousBinder);
     }
 
     public void setData(final DataSet<?> data) {
@@ -59,16 +58,13 @@ public class HeterogeneousAdapter extends RecyclerView.Adapter<ViewHolder> {
 
     @Override
     public ViewHolder onCreateViewHolder(final ViewGroup parent, final int viewType) {
-        return mHeterogeneousBinders.get(viewType).onCreateViewHolder(new InflatingContext(LayoutInflater.from(parent.getContext()), parent));
+        return mBinderHandler.createViewHolder(parent, viewType);
     }
 
     @SuppressWarnings("unchecked")
     @Override
     public void onBindViewHolder(final ViewHolder genericHolder, final int position) {
-        HeterogeneousBinder<Object, ViewHolder> binder = getBinderForPosition(position);
-        if (binder != null) {
-            binder.onBindViewHolder(genericHolder, mData.get(position));
-        }
+        mBinderHandler.bindViewHolder(genericHolder, position);
     }
 
     @Override
@@ -78,52 +74,16 @@ public class HeterogeneousAdapter extends RecyclerView.Adapter<ViewHolder> {
 
     @Override
     public int getItemViewType(final int position) {
-        return heterogeneousBinderIndexFor(mData.get(position));
+        return mBinderHandler.getItemTypeForData(mData.get(position));
     }
 
     @Override
     public void onViewAttachedToWindow(final ViewHolder genericHolder) {
-        heterogeneousBinderForType(genericHolder.getItemViewType())
-                .onAttach(genericHolder);
+        mBinderHandler.getBinderForType(genericHolder.getItemViewType()).onAttach(genericHolder);
     }
 
     @Override
     public void onViewDetachedFromWindow(final ViewHolder genericHolder) {
-        heterogeneousBinderForType(genericHolder.getItemViewType())
-                .onDetach(genericHolder);
-    }
-
-    @SuppressWarnings("unchecked")
-    private HeterogeneousBinder<Object, ViewHolder> heterogeneousBinderForType(final int type) {
-        return (HeterogeneousBinder<Object, ViewHolder>) mHeterogeneousBinders.get(type);
-    }
-
-    @SuppressWarnings("unchecked")
-    private HeterogeneousBinder<Object, ViewHolder> heterogeneousBinderForData(final Object data) {
-        for (int i = 0; i < mHeterogeneousBinders.size(); i++) {
-            if (mHeterogeneousBinders.get(i).isMyData(data)) {
-                return (HeterogeneousBinder<Object, ViewHolder>)mHeterogeneousBinders.get(i);
-            }
-        }
-
-        throw new RuntimeException("Could not find binder for data type: " + data.getClass().getSimpleName());
-    }
-
-    private Integer heterogeneousBinderIndexFor(final Object data) {
-        for (int i = 0; i < mHeterogeneousBinders.size(); i++) {
-            if (mHeterogeneousBinders.get(i).isMyData(data)) {
-                return i;
-            }
-        }
-
-        throw new RuntimeException("Could not find binder index for data type: " + data.getClass().getSimpleName());
-    }
-
-    public int getSpanForPosition(final int position) {
-        return heterogeneousBinderForData(mData.get(position)).getSpan();
-    }
-
-    public HeterogeneousBinder<Object, ViewHolder> getBinderForPosition(final int position) {
-        return heterogeneousBinderForData(mData.get(position));
+        mBinderHandler.getBinderForType(genericHolder.getItemViewType()).onDetach(genericHolder);
     }
 }

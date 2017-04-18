@@ -10,17 +10,21 @@ import com.iheartradio.heterogeneousadapter.dataset.DataSet;
 
 public class HeterogeneousBinderDiffCallback extends DiffUtil.Callback {
 
+    private final DataSet<?> mOldData;
     private final DataSet<?> mNewData;
-    private final HeterogeneousAdapter mAdapter;
+    private final BinderHandler mBinderHandler;
 
-    public HeterogeneousBinderDiffCallback(final HeterogeneousAdapter adapter, final DataSet<?> newData) {
+    public HeterogeneousBinderDiffCallback(final BinderHandler binderHandler,
+                                           final DataSet<?> newData,
+                                           final DataSet<?> oldData) {
+        mOldData = oldData;
         mNewData = newData;
-        mAdapter = adapter;
+        mBinderHandler = binderHandler;
     }
 
     @Override
     public int getOldListSize() {
-        return mAdapter.dataSet().size();
+        return mOldData.size();
     }
 
     @Override
@@ -29,18 +33,12 @@ public class HeterogeneousBinderDiffCallback extends DiffUtil.Callback {
     }
 
     @Override
-    public boolean areItemsTheSame(int oldItemPosition, int newItemPosition) {
-        if (mAdapter.getBinderForPosition(oldItemPosition) == mAdapter.getBinderForPosition(newItemPosition)) {
-            return mAdapter.getBinderForPosition(oldItemPosition).areItemsTheSame(mAdapter.dataSet().get(oldItemPosition),
-                                                                              mAdapter.dataSet().get(newItemPosition));
-        } else {
-            return false;
-        }
+    public boolean areItemsTheSame(final int oldItemPosition, final int newItemPosition) {
+        return mBinderHandler.isDataTheSame(mOldData.get(oldItemPosition), mNewData.get(newItemPosition));
     }
 
     @Override
-    public boolean areContentsTheSame(int oldItemPosition, int newItemPosition) {
-        return mAdapter.getBinderForPosition(oldItemPosition)
-                .areContentsTheSame(mAdapter.dataSet().get(oldItemPosition), mAdapter.dataSet().get(newItemPosition));
+    public boolean areContentsTheSame(final int oldItemPosition, final int newItemPosition) {
+        return mOldData.get(oldItemPosition).equals(mNewData.get(newItemPosition));
     }
 }

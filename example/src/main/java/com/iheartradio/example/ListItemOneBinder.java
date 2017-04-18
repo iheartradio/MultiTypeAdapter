@@ -18,4 +18,9 @@ public class ListItemOneBinder extends HeterogeneousBinder<ListItemOneData, List
     public ListItemOneViewHolder onCreateViewHolder(InflatingContext inflating) {
         return ListItemOneViewHolder.create(inflating.parent());
     }
+
+    @Override
+    public boolean isDataEqual(final ListItemOneData data1, final ListItemOneData data2) {
+        return data1.data.equals(data2.data);
+    }
 }

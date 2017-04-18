@@ -20,12 +20,7 @@ public class ListItemTwoBinder extends HeterogeneousBinder<ListItemTwoData, List
     }
 
     @Override
-    public boolean areItemsTheSame(ListItemTwoData oldData, ListItemTwoData newData) {
-        return oldData.data.equals(newData.data);
-    }
-
-    @Override
-    public boolean areContentsTheSame(ListItemTwoData oldData, ListItemTwoData newData) {
-        return oldData.data.equals(newData.data);
+    public boolean isDataEqual(final ListItemTwoData data1, final ListItemTwoData data2) {
+        return data1.data.equals(data2.data);
     }
 }
