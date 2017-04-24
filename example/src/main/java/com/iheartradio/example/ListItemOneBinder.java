@@ -21,6 +21,9 @@ public class ListItemOneBinder extends HeterogeneousBinder<ListItemOneData, List
 
     @Override
     public boolean isDataEqual(final ListItemOneData data1, final ListItemOneData data2) {
+        if (data1 == null || data2 == null) {
+            return false;
+        }
         return data1.data.equals(data2.data);
     }
 }

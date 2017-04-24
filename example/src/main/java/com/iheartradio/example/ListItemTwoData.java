@@ -5,5 +5,13 @@ package com.iheartradio.example;
  */
 
 public class ListItemTwoData {
-    public String data;
+    public String mData;
+
+    public ListItemTwoData(final String data) {
+        mData = data;
+    }
+
+    public String getData() {
+        return mData;
+    }
 }

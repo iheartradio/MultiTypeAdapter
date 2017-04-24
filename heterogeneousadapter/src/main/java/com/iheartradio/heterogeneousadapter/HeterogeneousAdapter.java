@@ -32,20 +32,9 @@ public class HeterogeneousAdapter extends RecyclerView.Adapter<ViewHolder> {
     }
 
     public void setData(final DataSet<?> data) {
-        if (mCalcDiff) {
-            DiffUtil.DiffResult diffResult = DiffUtil.calculateDiff(new HeterogeneousBinderDiffCallback(this, data));
-            mData = data;
-            diffResult.dispatchUpdatesTo(this);
-        } else {
-            // do nothing if data is not actually changed
-            if (mData == data) {
-                return;
-            }
-
-            mData = data;
-
-            notifyDataSetChanged();
-        }
+        DiffUtil.DiffResult diffResult = DiffUtil.calculateDiff(new HeterogeneousBinderDiffCallback(mBinderHandler, data, mData));
+        mData = data;
+        diffResult.dispatchUpdatesTo(this);
     }
 
     public DataSet<?> dataSet() {
@@ -64,7 +53,7 @@ public class HeterogeneousAdapter extends RecyclerView.Adapter<ViewHolder> {
     @SuppressWarnings("unchecked")
     @Override
     public void onBindViewHolder(final ViewHolder genericHolder, final int position) {
-        mBinderHandler.bindViewHolder(genericHolder, position);
+        mBinderHandler.bindViewHolder(genericHolder, mData.get(position));
     }
 
     @Override

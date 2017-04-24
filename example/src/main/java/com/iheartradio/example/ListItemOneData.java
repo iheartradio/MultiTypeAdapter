@@ -5,5 +5,5 @@ package com.iheartradio.example;
  */
 
 public class ListItemOneData {
-    public String data;
+    public String data = "";
 }
