@@ -1,6 +1,7 @@
 package com.iheartradio.heterogeneousadapter;
 
 import android.content.Context;
+import android.support.annotation.NonNull;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -14,14 +15,14 @@ public class InflatingContext {
     private final LayoutInflater mInflater;
     private final ViewGroup mParent;
 
-    public static InflatingContext fromParent(final ViewGroup parent) {
+    public static InflatingContext fromParent(@NonNull final ViewGroup parent) {
         final Context context = parent.getContext();
         final LayoutInflater inflater = LayoutInflater.from(context);
 
         return new InflatingContext(inflater, parent);
     }
 
-    public InflatingContext(final LayoutInflater inflater, final ViewGroup parent) {
+    public InflatingContext(@NonNull final LayoutInflater inflater, @NonNull final ViewGroup parent) {
         mInflater = inflater;
         mParent = parent;
     }

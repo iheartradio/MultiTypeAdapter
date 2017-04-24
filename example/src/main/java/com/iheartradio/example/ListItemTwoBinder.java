@@ -26,4 +26,9 @@ public class ListItemTwoBinder extends HeterogeneousBinder<ListItemTwoData, List
         }
         return data1.getData().equals(data2.getData());
     }
+
+    @Override
+    public void onBindViewHolder(final ListItemTwoViewHolder viewHolder, final ListItemTwoData data) {
+        viewHolder.bind(data);
+    }
 }

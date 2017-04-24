@@ -11,7 +11,7 @@ import java.util.List;
  * Created by Jonathan Muller on 4/18/17.
  */
 
-public class BinderHandler {
+public final class BinderHandler {
 
     private final List<HeterogeneousBinder<?, ?>> mBinders;
 
@@ -25,7 +25,7 @@ public class BinderHandler {
     }
 
     RecyclerView.ViewHolder createViewHolder(final ViewGroup parent, final int viewType) {
-        return mBinders.get(viewType).onCreateViewHolder(new InflatingContext(LayoutInflater.from(parent.getContext()), parent));
+        return mBinders.get(viewType).onCreateViewHolder(InflatingContext.fromParent(parent));
     }
 
     void bindViewHolder(final RecyclerView.ViewHolder genericHolder, final Object data) {
@@ -33,6 +33,10 @@ public class BinderHandler {
         if (binder != null) {
             binder.onBindViewHolder(genericHolder, data);
         }
+    }
+
+    public List<HeterogeneousBinder<?, ?>> getBinders() {
+        return mBinders;
     }
 
     @SuppressWarnings("unchecked")

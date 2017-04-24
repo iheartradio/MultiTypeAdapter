@@ -7,70 +7,61 @@ import android.support.v7.widget.RecyclerView;
  */
 
 public class HeterogeneousBinderImpl<D, V extends RecyclerView.ViewHolder> extends HeterogeneousBinder<D, V> {
+
+    private final Class<D> mTargetClass;
+    private final OnCreateVHConsumer<? extends V> mOnCreateViewHolder;
+    private final OnBindConsumer<? super V, ? super D> mOnBindViewHolder;
+    private final VHConsumer<? super V> mOnAttach;
+    private final VHConsumer<? super V> mOnDetach;
+    private final SpanSupplier mSpanSupplier;
+
+    HeterogeneousBinderImpl(final Class<D> targetClass,
+                            final OnCreateVHConsumer<? extends V> onCreateViewHolder,
+                            final OnBindConsumer<? super V, ? super D> onBindViewHolder,
+                            final VHConsumer<? super V> onAttach,
+                            final VHConsumer<? super V> onDetach,
+                            final SpanSupplier getSpan) {
+
+        mTargetClass = targetClass;
+        mOnCreateViewHolder = onCreateViewHolder;
+        mOnBindViewHolder = onBindViewHolder;
+        mOnAttach = onAttach;
+        mOnDetach = onDetach;
+        mSpanSupplier = getSpan;
+    }
+
+
     @Override
-    public boolean isMyData(Object data) {
-        return false;
+    public boolean isMyData(final Object data) {
+
+        return mTargetClass.isAssignableFrom(data.getClass());
     }
 
     @Override
-    public V onCreateViewHolder(InflatingContext inflating) {
-        return null;
+    public V onCreateViewHolder(final InflatingContext inflating) {
+        return mOnCreateViewHolder.createViewHolder(inflating);
     }
 
-//    private final Class<D> mTargetClass;
-//    private final Function<InflatingContext, ? extends V> mOnCreateViewHolder;
-//    private final ViewBinder<? super V, ? super D> mOnBindViewHolder;
-//    private final Receiver<? super V> mOnAttach;
-//    private final Receiver<? super V> mOnDetach;
-//    private final Supplier<Integer> mGetSpan;
-//
-//    HeterogeneousBinderImpl(final Class<D> targetClass,
-//                            final Function<InflatingContext, ? extends V> onCreateViewHolder,
-//                            final ViewBinder<? super V, ? super D> onBindViewHolder,
-//                            final Receiver<? super V> onAttach,
-//                            final Receiver<? super V> onDetach,
-//                            final Supplier<Integer> getSpan) {
-//
-//        mTargetClass = targetClass;
-//        mOnCreateViewHolder = onCreateViewHolder;
-//        mOnBindViewHolder = onBindViewHolder;
-//        mOnAttach = onAttach;
-//        mOnDetach = onDetach;
-//        mGetSpan = getSpan;
-//    }
-//
-//
-//    @Override
-//    public boolean isMyData(final Object data) {
-//
-//        return mTargetClass.isAssignableFrom(data.getClass());
-//    }
-//
-//    @Override
-//    public V onCreateViewHolder(final InflatingContext inflating) {
-//        return mOnCreateViewHolder.apply(inflating);
-//    }
-//
-//    @Override
-//    public void onBindViewHolder(final V viewHolder,
-//                                 final D data) {
-//        mOnBindViewHolder.bindViewHolder(viewHolder,
-//                                         data);
-//    }
-//
-//    @Override
-//    public void onAttach(V viewHolder) {
-//        mOnAttach.receive(viewHolder);
-//    }
-//
-//    @Override
-//    public void onDetach(V viewHolder) {
-//        mOnDetach.receive(viewHolder);
-//    }
-//
-//    @Override
-//    public int getSpan() {
-//        return mGetSpan.get();
-//    }
+    @Override
+    public void onBindViewHolder(final V viewHolder,
+                                 final D data) {
+        mOnBindViewHolder.bindViewHolder(viewHolder,
+                                         data);
+    }
+
+    @Override
+    public void onAttach(V viewHolder) {
+        mOnAttach.accept(viewHolder);
+    }
+
+    @Override
+    public void onDetach(V viewHolder) {
+        mOnDetach.accept(viewHolder);
+    }
+
+    @Override
+    public int getSpan() {
+        return mSpanSupplier.getSpan();
+    }
 
 }

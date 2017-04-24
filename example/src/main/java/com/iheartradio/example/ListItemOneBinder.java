@@ -16,7 +16,7 @@ public class ListItemOneBinder extends HeterogeneousBinder<ListItemOneData, List
 
     @Override
     public ListItemOneViewHolder onCreateViewHolder(InflatingContext inflating) {
-        return ListItemOneViewHolder.create(inflating.parent());
+        return ListItemOneViewHolder.create(inflating);
     }
 
     @Override

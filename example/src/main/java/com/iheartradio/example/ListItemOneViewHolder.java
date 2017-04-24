@@ -5,6 +5,8 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 
+import com.iheartradio.heterogeneousadapter.InflatingContext;
+
 /**
  * Created by Jonathan Muller on 3/7/17.
  */
@@ -15,8 +17,7 @@ public class ListItemOneViewHolder extends RecyclerView.ViewHolder {
         super(itemView);
     }
 
-    public static ListItemOneViewHolder create(final ViewGroup parent) {
-        View view = LayoutInflater.from(parent.getContext()).inflate(R.layout.list_item_1, parent, false);
-        return new ListItemOneViewHolder(view);
+    public static ListItemOneViewHolder create(final InflatingContext inflatingContext) {
+        return new ListItemOneViewHolder(inflatingContext.inflate(R.layout.list_item_1));
     }
 }

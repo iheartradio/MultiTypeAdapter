@@ -2,11 +2,7 @@ package com.iheartradio.heterogeneousadapter;
 
 import android.support.v7.util.DiffUtil;
 import android.support.v7.widget.RecyclerView;
-import android.view.LayoutInflater;
 import android.view.ViewGroup;
-
-import com.iheartradio.heterogeneousadapter.dataset.DataSet;
-import com.iheartradio.heterogeneousadapter.dataset.EmptyDataSet;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -20,8 +16,7 @@ import static android.support.v7.widget.RecyclerView.*;
 public class HeterogeneousAdapter extends RecyclerView.Adapter<ViewHolder> {
 
     private BinderHandler mBinderHandler;
-    private DataSet<?> mData = new EmptyDataSet<>();
-    private boolean mCalcDiff = false;
+    private List<Object> mData = new ArrayList<>();
 
     public HeterogeneousAdapter(final List<HeterogeneousBinder<?, ?>> heterogeneousBinders) {
         mBinderHandler = new BinderHandler(heterogeneousBinders);
@@ -31,18 +26,18 @@ public class HeterogeneousAdapter extends RecyclerView.Adapter<ViewHolder> {
         mBinderHandler = new BinderHandler(heterogeneousBinder);
     }
 
-    public void setData(final DataSet<?> data) {
+    public void setData(final List<Object> data) {
         DiffUtil.DiffResult diffResult = DiffUtil.calculateDiff(new HeterogeneousBinderDiffCallback(mBinderHandler, data, mData));
         mData = data;
         diffResult.dispatchUpdatesTo(this);
     }
 
-    public DataSet<?> dataSet() {
+    public List<Object> data() {
         return mData;
     }
 
-    public void calcDiff(final boolean calcDiff) {
-        mCalcDiff = calcDiff;
+    public BinderHandler binderHandler() {
+        return mBinderHandler;
     }
 
     @Override
@@ -74,5 +69,12 @@ public class HeterogeneousAdapter extends RecyclerView.Adapter<ViewHolder> {
     @Override
     public void onViewDetachedFromWindow(final ViewHolder genericHolder) {
         mBinderHandler.getBinderForType(genericHolder.getItemViewType()).onDetach(genericHolder);
+    }
+
+    public HeterogeneousBinder<?, ?> getBinderForPosition(final int position) {
+        if (position >= mData.size()) {
+            throw new ArrayIndexOutOfBoundsException("Position " + position + " is out of range for list of size " + mData.size());
+        }
+        return mBinderHandler.getBinderForData(mData.get(position));
     }
 }

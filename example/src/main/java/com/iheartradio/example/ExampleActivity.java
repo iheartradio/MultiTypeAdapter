@@ -6,10 +6,13 @@ import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.view.View;
 
+import com.iheartradio.heterogeneousadapter.HeterogeneousBinderFactory;
 import com.iheartradio.heterogeneousadapter.HeterogeneousDataCreator;
 import com.iheartradio.heterogeneousadapter.HeterogeneousAdapter;
 import com.iheartradio.heterogeneousadapter.HeterogeneousBinder;
-import com.iheartradio.heterogeneousadapter.dataset.SingleItemDataSet;
+import com.iheartradio.heterogeneousadapter.InflatingContext;
+import com.iheartradio.heterogeneousadapter.OnBindConsumer;
+import com.iheartradio.heterogeneousadapter.OnCreateVHConsumer;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -20,6 +23,7 @@ public class ExampleActivity extends AppCompatActivity {
     private View mAddButton;
     private HeterogeneousAdapter mAdapter;
     private Random mRandom = new Random();
+    private int mLastPosition;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -35,24 +39,27 @@ public class ExampleActivity extends AppCompatActivity {
         mAddButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(final View v) {
-                int insertionIndex = randomRange(0, mAdapter.getItemCount());
+                int insertionIndex;
+                do {
+                    insertionIndex = randomRange(0, mAdapter.getItemCount());
+                } while (insertionIndex == mLastPosition);
+
+                mLastPosition = insertionIndex;
+
                 HeterogeneousDataCreator creator = getAdapterData();
-                creator.add(insertionIndex, new ListItemOneData());
+                creator.add(insertionIndex, new ListItemTwoData(String.valueOf(insertionIndex)));
                 mAdapter.setData(creator.getData());
             }
         });
     }
 
     private void initAdapter(final RecyclerView recyclerView) {
-
         List<HeterogeneousBinder<?, ?>> binders = new ArrayList<>();
         binders.add(new ListItemOneBinder());
         binders.add(new ListItemTwoBinder());
 
         mAdapter = new HeterogeneousAdapter(binders);
         recyclerView.setAdapter(mAdapter);
-        mAdapter.calcDiff(true);
-
 
         mAdapter.setData(getAdapterData().getData());
     }
