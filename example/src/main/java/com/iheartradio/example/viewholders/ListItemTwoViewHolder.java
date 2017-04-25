@@ -1,11 +1,11 @@
-package com.iheartradio.example;
+package com.iheartradio.example.viewholders;
 
 import android.support.v7.widget.RecyclerView;
-import android.view.LayoutInflater;
 import android.view.View;
-import android.view.ViewGroup;
 import android.widget.TextView;
 
+import com.iheartradio.example.data.LowerCaseStringData;
+import com.iheartradio.example.R;
 import com.iheartradio.heterogeneousadapter.InflatingContext;
 
 /**
@@ -25,7 +25,7 @@ public class ListItemTwoViewHolder extends RecyclerView.ViewHolder {
         return new ListItemTwoViewHolder(inflatingContext.inflate(R.layout.list_item_2));
     }
 
-    public void bind(final ListItemTwoData data) {
+    public void bind(final LowerCaseStringData data) {
         mText.setText(data.getData());
     }
 }

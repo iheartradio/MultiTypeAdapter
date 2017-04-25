@@ -33,7 +33,7 @@ public class HeterogeneousAdapter extends RecyclerView.Adapter<ViewHolder> {
     }
 
     public List<Object> data() {
-        return mData;
+        return new ArrayList<>(mData);
     }
 
     public BinderHandler binderHandler() {
