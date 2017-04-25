@@ -10,13 +10,13 @@
         android:id="@+id/text"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        style="@style/TextAppearance.AppCompat.Body2"
-        android:padding="8dp"
+        style="@style/TextAppearance.AppCompat.Body1"
+        android:padding="16dp"
         tools:text="Text"/>
 
     <View
         android:layout_width="match_parent"
         android:layout_height="1dp"
-        android:background="#000000"/>
+        android:background="#0F000000"/>
 
 </LinearLayout>
