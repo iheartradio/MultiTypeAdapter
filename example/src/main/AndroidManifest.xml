@@ -20,7 +20,8 @@
             android:label="@string/title_activity_factory"
             android:theme="@style/AppTheme.NoActionBar" />
         <activity android:name=".MultiTypeListExample" />
-        <activity android:name=".SingleItemTypeActivity"></activity>
+        <activity android:name=".SingleItemTypeActivity" />
+        <activity android:name=".BuilderPatternActivity"></activity>
     </application>
 
 </manifest>

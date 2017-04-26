@@ -2,27 +2,32 @@ package com.iheartradio.heterogeneousadapter;
 
 import android.support.v7.widget.RecyclerView;
 
+import com.iheartradio.heterogeneousadapter.interfaces.BiConsumer;
+import com.iheartradio.heterogeneousadapter.interfaces.Consumer;
+import com.iheartradio.heterogeneousadapter.interfaces.Function1;
+import com.iheartradio.heterogeneousadapter.interfaces.Supplier;
+
 /**
  * Created by Jonathan Muller on 2/27/17.
  */
 
-public class HeterogeneousBinderImpl<D, V extends RecyclerView.ViewHolder> extends HeterogeneousBinder<D, V> {
+class HeterogeneousBinderImpl<D, V extends RecyclerView.ViewHolder> extends HeterogeneousBinder<D, V> {
 
-    private final Class<D> mTargetClass;
-    private final OnCreateVHConsumer<? extends V> mOnCreateViewHolder;
-    private final OnBindConsumer<? super V, ? super D> mOnBindViewHolder;
-    private final VHConsumer<? super V> mOnAttach;
-    private final VHConsumer<? super V> mOnDetach;
-    private final SpanSupplier mSpanSupplier;
+    private final Function1<Object, Boolean> mIsMyData;
+    private final Function1<InflatingContext, ? extends V> mOnCreateViewHolder;
+    private final BiConsumer<? super V, ? super D> mOnBindViewHolder;
+    private final Consumer<? super V> mOnAttach;
+    private final Consumer<? super V> mOnDetach;
+    private final Supplier<Integer> mSpanSupplier;
 
-    HeterogeneousBinderImpl(final Class<D> targetClass,
-                            final OnCreateVHConsumer<? extends V> onCreateViewHolder,
-                            final OnBindConsumer<? super V, ? super D> onBindViewHolder,
-                            final VHConsumer<? super V> onAttach,
-                            final VHConsumer<? super V> onDetach,
-                            final SpanSupplier getSpan) {
+    HeterogeneousBinderImpl(final Function1<Object, Boolean> isMyData,
+                            final Function1<InflatingContext, ? extends V> onCreateViewHolder,
+                            final BiConsumer<? super V, ? super D> onBindViewHolder,
+                            final Consumer<? super V> onAttach,
+                            final Consumer<? super V> onDetach,
+                            final Supplier<Integer> getSpan) {
 
-        mTargetClass = targetClass;
+        mIsMyData = isMyData;
         mOnCreateViewHolder = onCreateViewHolder;
         mOnBindViewHolder = onBindViewHolder;
         mOnAttach = onAttach;
@@ -30,38 +35,49 @@ public class HeterogeneousBinderImpl<D, V extends RecyclerView.ViewHolder> exten
         mSpanSupplier = getSpan;
     }
 
+    HeterogeneousBinderImpl(final Class<?> targetClass,
+                            final Function1<InflatingContext, ? extends V> onCreateViewHolder,
+                            final BiConsumer<? super V, ? super D> onBindViewHolder,
+                            final Consumer<? super V> onAttach,
+                            final Consumer<? super V> onDetach,
+                            final Supplier<Integer> getSpan) {
+        this(new Function1<Object, Boolean>() {
+            @Override
+            public Boolean invoke(Object input) {
+                return targetClass.isAssignableFrom(input.getClass());
+            }
+        }, onCreateViewHolder, onBindViewHolder, onAttach, onDetach, getSpan);
+    }
+
 
     @Override
     public boolean isMyData(final Object data) {
-
-        return mTargetClass.isAssignableFrom(data.getClass());
+        return mIsMyData.invoke(data);
     }
 
     @Override
     public V onCreateViewHolder(final InflatingContext inflating) {
-        return mOnCreateViewHolder.createViewHolder(inflating);
+        return mOnCreateViewHolder.invoke(inflating);
     }
 
     @Override
-    public void onBindViewHolder(final V viewHolder,
-                                 final D data) {
-        mOnBindViewHolder.bindViewHolder(viewHolder,
-                                         data);
+    public void onBindViewHolder(final V viewHolder, final D data) {
+        mOnBindViewHolder.invoke(viewHolder, data);
     }
 
     @Override
     public void onAttach(V viewHolder) {
-        mOnAttach.accept(viewHolder);
+        mOnAttach.invoke(viewHolder);
     }
 
     @Override
     public void onDetach(V viewHolder) {
-        mOnDetach.accept(viewHolder);
+        mOnDetach.invoke(viewHolder);
     }
 
     @Override
     public int getSpan() {
-        return mSpanSupplier.getSpan();
+        return mSpanSupplier.invoke();
     }
 
 }
