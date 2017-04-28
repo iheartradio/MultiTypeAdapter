@@ -36,6 +36,18 @@ public class MainActivity extends AppCompatActivity {
                     public void run() {
                         goToActivity(MultiTypeListExample.class);
                     }
+                }))
+                .add(new SimpleClickableTextData("Single Item Type Grid", new Runnable() {
+                    @Override
+                    public void run() {
+                        goToActivity(SingleTypeGridExample.class);
+                    }
+                }))
+                .add(new SimpleClickableTextData("Multi Item Type Grid", new Runnable() {
+                    @Override
+                    public void run() {
+                        goToActivity(MultiTypeGridExample.class);
+                    }
                 }));
 
         adapter.setData(creator.getData());

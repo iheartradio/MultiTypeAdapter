@@ -33,4 +33,9 @@ public class LowerCaseStringBinder extends HeterogeneousBinder<LowerCaseStringDa
     public void onBindViewHolder(final ListItemTwoViewHolder viewHolder, final LowerCaseStringData data) {
         viewHolder.bind(data);
     }
+
+    @Override
+    public int getSpan() {
+        return 2;
+    }
 }

@@ -1,6 +1,8 @@
 package com.iheartradio.example;
 
 import android.os.Bundle;
+import android.support.v7.widget.LinearLayoutManager;
+import android.support.v7.widget.RecyclerView;
 
 import com.iheartradio.example.data.UpperCaseStringData;
 import com.iheartradio.example.typeadapters.LowerCaseStringBinder;
@@ -40,21 +42,14 @@ public class MultiTypeListExample extends BaseActivity {
         return new HeterogeneousAdapter(binders);
     }
 
+    @Override
+    RecyclerView.LayoutManager getLayoutManager() {
+        return new LinearLayoutManager(this);
+    }
+
     public void onAddButtonClicked() {
         List<Object> listData = mAdapter.data();
         List<Object> modifiedList = ListUtils.addRandomData(listData, new UpperCaseStringData("UpperCaseString Data"));
-        mAdapter.setData(modifiedList);
-    }
-
-    public void onRemoveButtonClicked() {
-        List<Object> listData = mAdapter.data();
-        List<Object> modifiedList = ListUtils.removeRandomData(listData);
-        mAdapter.setData(modifiedList);
-    }
-
-    public void onMoveButtonClicked() {
-        List<Object> listData = mAdapter.data();
-        List<Object> modifiedList = ListUtils.moveRandomData(listData);
         mAdapter.setData(modifiedList);
     }
 }

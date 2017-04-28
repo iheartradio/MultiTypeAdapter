@@ -6,7 +6,10 @@ import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.view.View;
 
+import com.iheartradio.example.data.LowerCaseStringData;
 import com.iheartradio.heterogeneousadapter.HeterogeneousAdapter;
+
+import java.util.List;
 
 /**
  * Created by Jonathan Muller on 4/25/17.
@@ -29,7 +32,7 @@ public abstract class BaseActivity extends Activity {
         mMoveButton = findViewById(R.id.move_button);
 
         mRecyclerView = (RecyclerView) findViewById(R.id.recycler_view);
-        mRecyclerView.setLayoutManager(new LinearLayoutManager(this));
+        mRecyclerView.setLayoutManager(getLayoutManager());
         mAdapter = onCreateAdapter();
         mRecyclerView.setAdapter(mAdapter);
 
@@ -54,8 +57,23 @@ public abstract class BaseActivity extends Activity {
     }
 
     abstract HeterogeneousAdapter onCreateAdapter();
+    abstract RecyclerView.LayoutManager getLayoutManager();
 
-    public void onAddButtonClicked() { }
-    public void onRemoveButtonClicked() { }
-    public void onMoveButtonClicked() { }
+    public void onAddButtonClicked() {
+        List<Object> listData = mAdapter.data();
+        List<Object> modifiedList = ListUtils.addRandomData(listData, new LowerCaseStringData(String.valueOf(ListUtils.randomRange(0, 100))));
+        mAdapter.setData(modifiedList);
+    }
+
+    public void onRemoveButtonClicked() {
+        List<Object> listData = mAdapter.data();
+        List<Object> modifiedList = ListUtils.removeRandomData(listData);
+        mAdapter.setData(modifiedList);
+    }
+
+    public void onMoveButtonClicked() {
+        List<Object> listData = mAdapter.data();
+        List<Object> modifiedList = ListUtils.moveRandomData(listData);
+        mAdapter.setData(modifiedList);
+    }
 }

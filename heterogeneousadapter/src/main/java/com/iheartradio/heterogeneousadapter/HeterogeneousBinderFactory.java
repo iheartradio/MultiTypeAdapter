@@ -59,6 +59,32 @@ public class HeterogeneousBinderFactory {
     }
 
     public static <D, V extends RecyclerView.ViewHolder> HeterogeneousBinder<D, V> create(final Class<D> targetClass,
+                                                                                          final Function1<InflatingContext, ? extends V> onCreateViewHolder) {
+        return new HeterogeneousBinderImpl<>(targetClass, onCreateViewHolder,
+            new BiConsumer<V, D>() {
+                @Override
+                public void invoke(V v, D d) {
+
+                }
+        }, new Consumer<V>() {
+            @Override
+            public void invoke(final V viewHolder) {
+
+            }
+        }, new Consumer<V>() {
+            @Override
+            public void invoke(final V viewHolder) {
+
+            }
+        }, new Supplier<Integer>() {
+            @Override
+            public Integer invoke() {
+                return DEFAULT_SPAN;
+            }
+        });
+    }
+
+    public static <D, V extends RecyclerView.ViewHolder> HeterogeneousBinder<D, V> create(final Class<D> targetClass,
                                                                                           final Function1<InflatingContext, ? extends V> onCreateViewHolder,
                                                                                           final BiConsumer<? super V, ? super D> onBindViewHolder,
                                                                                           final Supplier<Integer> spanSupplier) {

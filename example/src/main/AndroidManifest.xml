@@ -21,7 +21,9 @@
             android:theme="@style/AppTheme.NoActionBar" />
         <activity android:name=".MultiTypeListExample" />
         <activity android:name=".SingleItemTypeActivity" />
-        <activity android:name=".BuilderPatternActivity"></activity>
+        <activity android:name=".BuilderPatternActivity" />
+        <activity android:name=".SingleTypeGridExample" />
+        <activity android:name=".MultiTypeGridExample"></activity>
     </application>
 
 </manifest>
