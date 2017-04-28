@@ -2,10 +2,7 @@ package com.iheartradio.heterogeneousadapter;
 
 import android.support.v7.widget.RecyclerView;
 
-import com.iheartradio.heterogeneousadapter.interfaces.BiConsumer;
-import com.iheartradio.heterogeneousadapter.interfaces.Consumer;
-import com.iheartradio.heterogeneousadapter.interfaces.Function1;
-import com.iheartradio.heterogeneousadapter.interfaces.Supplier;
+import java.util.List;
 
 /**
  * Created by Jonathan Muller on 2/27/17.
@@ -15,15 +12,15 @@ public abstract class HeterogeneousBinder<D, V extends RecyclerView.ViewHolder> 
 
     private static final int DEFAULT_SPAN = 1;
 
-    public abstract boolean isMyData(Object data);
+    public abstract boolean isMyData(final Object data);
 
-    public abstract V onCreateViewHolder(InflatingContext inflating);
+    public abstract V onCreateViewHolder(final InflatingContext inflating);
 
-    public void onBindViewHolder(V viewHolder, D data) { }
+    public void onBindViewHolder(final V viewHolder, final D data, final List<Object> payloads) { }
 
-    public void onAttach(V view) { }
+    public void onAttach(final V view) { }
 
-    public void onDetach(V view) { }
+    public void onDetach(final V view) { }
 
     public int getSpan() {
         return DEFAULT_SPAN;

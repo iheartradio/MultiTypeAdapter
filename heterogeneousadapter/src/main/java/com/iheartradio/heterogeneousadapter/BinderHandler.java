@@ -27,10 +27,10 @@ public final class BinderHandler {
         return mBinders.get(viewType).onCreateViewHolder(InflatingContext.fromParent(parent));
     }
 
-    void bindViewHolder(final RecyclerView.ViewHolder genericHolder, final Object data) {
+    void bindViewHolder(final RecyclerView.ViewHolder genericHolder, final Object data, final List<Object> payloads) {
         HeterogeneousBinder<Object, RecyclerView.ViewHolder> binder = getBinderForData(data);
         if (binder != null) {
-            binder.onBindViewHolder(genericHolder, data);
+            binder.onBindViewHolder(genericHolder, data, payloads);
         }
     }
 

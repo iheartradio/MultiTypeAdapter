@@ -3,14 +3,12 @@ package com.iheartradio.example;
 import android.os.Bundle;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
-import android.support.v7.widget.helper.ItemTouchHelper;
 
 import com.iheartradio.example.typeadapters.LowerCaseStringBinder;
 import com.iheartradio.example.data.LowerCaseStringData;
 import com.iheartradio.heterogeneousadapter.HeterogeneousDataCreator;
 import com.iheartradio.heterogeneousadapter.HeterogeneousAdapter;
-import com.iheartradio.heterogeneousadapter.SimpleItemTouchHelperCallback;
-import com.iheartradio.heterogeneousadapter.interfaces.ItemTouchHelperFactory;
+import com.iheartradio.heterogeneousadapter.ItemTouchHelperFactory;
 
 import java.util.ArrayList;
 import java.util.List;

@@ -3,6 +3,8 @@ package com.iheartradio.heterogeneousadapter;
 import android.support.v7.widget.GridLayoutManager;
 import android.support.v7.widget.RecyclerView;
 
+import com.iheartradio.heterogeneousadapter.interfaces.SpanHandler;
+
 /**
  * Created by Jonathan Muller on 4/27/17.
  */

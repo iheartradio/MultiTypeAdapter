@@ -1,9 +1,10 @@
-package com.iheartradio.heterogeneousadapter.interfaces;
+package com.iheartradio.heterogeneousadapter;
 
 import android.support.v7.widget.RecyclerView;
 import android.support.v7.widget.helper.ItemTouchHelper;
 
 import com.iheartradio.heterogeneousadapter.SimpleItemTouchHelperCallback;
+import com.iheartradio.heterogeneousadapter.interfaces.ItemTouchHelperAdapter;
 
 /**
  * Created by Jonathan Muller on 4/28/17.

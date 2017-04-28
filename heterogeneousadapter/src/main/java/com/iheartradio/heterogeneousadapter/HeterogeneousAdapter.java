@@ -3,10 +3,10 @@ package com.iheartradio.heterogeneousadapter;
 import android.support.annotation.Nullable;
 import android.support.v7.util.DiffUtil;
 import android.support.v7.widget.RecyclerView;
-import android.support.v7.widget.helper.ItemTouchHelper;
 import android.view.ViewGroup;
 
 import com.iheartradio.heterogeneousadapter.interfaces.ItemTouchHelperAdapter;
+import com.iheartradio.heterogeneousadapter.interfaces.SpanHandler;
 
 import java.util.ArrayList;
 import java.util.Collections;
@@ -18,7 +18,7 @@ import static android.support.v7.widget.RecyclerView.*;
  * Created by Jonathan Muller on 2/27/17.
  */
 
-public final class HeterogeneousAdapter extends RecyclerView.Adapter<ViewHolder> implements ItemTouchHelperAdapter{
+public final class HeterogeneousAdapter extends RecyclerView.Adapter<ViewHolder> implements ItemTouchHelperAdapter {
 
     private SpanHandler mSpanHandler;
     private BinderHandler mBinderHandler;
@@ -35,13 +35,22 @@ public final class HeterogeneousAdapter extends RecyclerView.Adapter<ViewHolder>
         mSpanHandler = new GridLayoutSpanHandler(this);
     }
 
-    public void setData(final List<Object> data) {
-        DiffUtil.DiffResult diffResult = DiffUtil.calculateDiff(new HeterogeneousBinderDiffCallback(mBinderHandler, data, mData));
-        mData = data;
+    public void setData(final List<Object> data, final boolean useDiff) {
+        DiffUtil.DiffResult diffResult = null;
+        if (useDiff) {
+            diffResult = DiffUtil.calculateDiff(new HeterogeneousBinderDiffCallback(mBinderHandler, data, mData));
+        }
 
+        mData = data;
         setupSpanHandling();
 
-        diffResult.dispatchUpdatesTo(this);
+        if (diffResult != null) {
+            diffResult.dispatchUpdatesTo(this);
+        }
+    }
+
+    public void setData(final List<Object> data) {
+        setData(data, true);
     }
 
     public List<Object> data() {
@@ -66,7 +75,7 @@ public final class HeterogeneousAdapter extends RecyclerView.Adapter<ViewHolder>
 
     @Override
     public void onBindViewHolder(ViewHolder holder, int position, List<Object> payloads) {
-        mBinderHandler.bindViewHolder(holder, mData.get(position));
+        mBinderHandler.bindViewHolder(holder, mData.get(position), payloads);
     }
 
     @Override

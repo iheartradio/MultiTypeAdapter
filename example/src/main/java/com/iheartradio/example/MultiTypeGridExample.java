@@ -1,11 +1,9 @@
 package com.iheartradio.example;
 
 import android.graphics.Color;
-import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.support.v7.widget.GridLayoutManager;
 import android.support.v7.widget.RecyclerView;
-import android.support.v7.widget.helper.ItemTouchHelper;
 
 import com.iheartradio.example.data.ColorData;
 import com.iheartradio.example.data.LowerCaseStringData;
@@ -14,7 +12,7 @@ import com.iheartradio.example.typeadapters.LowerCaseStringBinder;
 import com.iheartradio.heterogeneousadapter.HeterogeneousAdapter;
 import com.iheartradio.heterogeneousadapter.HeterogeneousBinder;
 import com.iheartradio.heterogeneousadapter.HeterogeneousDataCreator;
-import com.iheartradio.heterogeneousadapter.interfaces.ItemTouchHelperFactory;
+import com.iheartradio.heterogeneousadapter.ItemTouchHelperFactory;
 
 import java.util.ArrayList;
 import java.util.List;
