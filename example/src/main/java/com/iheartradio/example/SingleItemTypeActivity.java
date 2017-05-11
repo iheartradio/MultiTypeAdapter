@@ -4,7 +4,7 @@ import android.os.Bundle;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 
-import com.iheartradio.example.typeadapters.LowerCaseStringBinder;
+import com.iheartradio.example.typeadapters.LowerCaseStringTypeAdapter;
 import com.iheartradio.example.data.LowerCaseStringData;
 import com.iheartradio.heterogeneousadapter.MultiTypeDataHelper;
 import com.iheartradio.heterogeneousadapter.MultiTypeAdapter;
@@ -34,7 +34,7 @@ public class SingleItemTypeActivity extends BaseActivity {
 
     @Override
     MultiTypeAdapter onCreateAdapter() {
-        MultiTypeAdapter adapter = new MultiTypeAdapter(new LowerCaseStringBinder());
+        MultiTypeAdapter adapter = new MultiTypeAdapter(new LowerCaseStringTypeAdapter());
 
         ItemTouchHelperFactory.create(adapter, mRecyclerView, true, true, false);
 

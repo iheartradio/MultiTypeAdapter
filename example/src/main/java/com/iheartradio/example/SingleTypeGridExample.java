@@ -6,7 +6,7 @@ import android.support.v7.widget.GridLayoutManager;
 import android.support.v7.widget.RecyclerView;
 
 import com.iheartradio.example.data.ColorData;
-import com.iheartradio.example.typeadapters.GridItemBinder;
+import com.iheartradio.example.typeadapters.GridItemTypeAdapter;
 import com.iheartradio.heterogeneousadapter.MultiTypeAdapter;
 import com.iheartradio.heterogeneousadapter.MultiTypeDataHelper;
 
@@ -37,7 +37,7 @@ public class SingleTypeGridExample extends BaseActivity {
 
     @Override
     MultiTypeAdapter onCreateAdapter() {
-        return new MultiTypeAdapter(new GridItemBinder());
+        return new MultiTypeAdapter(new GridItemTypeAdapter());
     }
 
     @Override

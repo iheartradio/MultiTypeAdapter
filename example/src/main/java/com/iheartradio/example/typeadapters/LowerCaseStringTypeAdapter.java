@@ -11,7 +11,7 @@ import java.util.List;
  * Created by Jonathan Muller on 3/10/17.
  */
 
-public class LowerCaseStringBinder extends TypeAdapter<LowerCaseStringData, ListItemTwoViewHolder> {
+public class LowerCaseStringTypeAdapter extends TypeAdapter<LowerCaseStringData, ListItemTwoViewHolder> {
 
     @Override
     public boolean isMyData(Object data) {

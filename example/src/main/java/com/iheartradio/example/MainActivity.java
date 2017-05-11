@@ -7,7 +7,7 @@ import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 
 import com.iheartradio.example.data.SimpleClickableTextData;
-import com.iheartradio.example.typeadapters.SimpleClickTextBinder;
+import com.iheartradio.example.typeadapters.SimpleClickTextTypeAdapter;
 import com.iheartradio.heterogeneousadapter.MultiTypeAdapter;
 import com.iheartradio.heterogeneousadapter.MultiTypeDataHelper;
 
@@ -21,7 +21,7 @@ public class MainActivity extends AppCompatActivity {
         RecyclerView recyclerView = (RecyclerView) findViewById(R.id.recycler_view);
         recyclerView.setLayoutManager(new LinearLayoutManager(this));
 
-        MultiTypeAdapter adapter = new MultiTypeAdapter(new SimpleClickTextBinder());
+        MultiTypeAdapter adapter = new MultiTypeAdapter(new SimpleClickTextTypeAdapter());
         recyclerView.setAdapter(adapter);
 
         MultiTypeDataHelper creator = new MultiTypeDataHelper()

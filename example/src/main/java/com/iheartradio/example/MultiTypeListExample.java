@@ -5,9 +5,9 @@ import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 
 import com.iheartradio.example.data.UpperCaseStringData;
-import com.iheartradio.example.typeadapters.LowerCaseStringBinder;
+import com.iheartradio.example.typeadapters.LowerCaseStringTypeAdapter;
 import com.iheartradio.example.data.LowerCaseStringData;
-import com.iheartradio.example.typeadapters.UpperCaseStringBinder;
+import com.iheartradio.example.typeadapters.UpperCaseStringTypeAdapter;
 import com.iheartradio.heterogeneousadapter.MultiTypeAdapter;
 import com.iheartradio.heterogeneousadapter.TypeAdapter;
 import com.iheartradio.heterogeneousadapter.MultiTypeDataHelper;
@@ -37,8 +37,8 @@ public class MultiTypeListExample extends BaseActivity {
     @Override
     MultiTypeAdapter onCreateAdapter() {
         List<TypeAdapter<?, ?>> binders = new ArrayList<>();
-        binders.add(new LowerCaseStringBinder());
-        binders.add(new UpperCaseStringBinder());
+        binders.add(new LowerCaseStringTypeAdapter());
+        binders.add(new UpperCaseStringTypeAdapter());
         return new MultiTypeAdapter(binders);
     }
 

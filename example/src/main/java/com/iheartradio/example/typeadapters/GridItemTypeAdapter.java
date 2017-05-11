@@ -12,7 +12,7 @@ import java.util.List;
  * Created by Jonathan Muller on 4/27/17.
  */
 
-public class GridItemBinder extends TypeAdapter<ColorData, GenericViewholder> {
+public class GridItemTypeAdapter extends TypeAdapter<ColorData, GenericViewholder> {
 
     @Override
     public boolean isMyData(Object data) {

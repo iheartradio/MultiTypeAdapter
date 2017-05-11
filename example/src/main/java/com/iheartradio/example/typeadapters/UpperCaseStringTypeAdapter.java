@@ -11,7 +11,7 @@ import java.util.List;
  * Created by Jonathan Muller on 3/7/17.
  */
 
-public class UpperCaseStringBinder extends TypeAdapter<UpperCaseStringData, ListItemOneViewHolder> {
+public class UpperCaseStringTypeAdapter extends TypeAdapter<UpperCaseStringData, ListItemOneViewHolder> {
 
     @Override
     public boolean isMyData(Object data) {

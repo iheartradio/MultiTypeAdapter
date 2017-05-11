@@ -14,7 +14,7 @@ import java.util.List;
  * Created by Jonathan Muller on 4/25/17.
  */
 
-public class SimpleClickTextBinder extends TypeAdapter<SimpleClickableTextData, SimpleItemViewHolder> {
+public class SimpleClickTextTypeAdapter extends TypeAdapter<SimpleClickableTextData, SimpleItemViewHolder> {
 
     @Override
     public boolean isMyData(Object data) {
