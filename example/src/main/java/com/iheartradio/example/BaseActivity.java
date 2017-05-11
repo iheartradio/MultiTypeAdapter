@@ -2,12 +2,11 @@ package com.iheartradio.example;
 
 import android.app.Activity;
 import android.os.Bundle;
-import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.view.View;
 
 import com.iheartradio.example.data.LowerCaseStringData;
-import com.iheartradio.heterogeneousadapter.HeterogeneousAdapter;
+import com.iheartradio.heterogeneousadapter.MultiTypeAdapter;
 
 import java.util.List;
 
@@ -20,7 +19,7 @@ public abstract class BaseActivity extends Activity {
     protected View mRemoveButton;
     protected View mMoveButton;
     protected RecyclerView mRecyclerView;
-    protected HeterogeneousAdapter mAdapter;
+    protected MultiTypeAdapter mAdapter;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -56,7 +55,7 @@ public abstract class BaseActivity extends Activity {
         });
     }
 
-    abstract HeterogeneousAdapter onCreateAdapter();
+    abstract MultiTypeAdapter onCreateAdapter();
     abstract RecyclerView.LayoutManager getLayoutManager();
 
     public void onAddButtonClicked() {

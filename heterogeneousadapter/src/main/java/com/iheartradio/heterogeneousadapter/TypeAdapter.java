@@ -9,7 +9,7 @@ import java.util.List;
  * Created by Jonathan Muller on 2/27/17.
  */
 
-public abstract class HeterogeneousBinder<D, V extends RecyclerView.ViewHolder> {
+public abstract class TypeAdapter<D, V extends RecyclerView.ViewHolder> {
 
     private static final int DEFAULT_SPAN = 1;
 

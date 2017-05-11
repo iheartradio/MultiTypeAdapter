@@ -8,8 +8,8 @@ import android.support.v7.widget.RecyclerView;
 
 import com.iheartradio.example.data.SimpleClickableTextData;
 import com.iheartradio.example.typeadapters.SimpleClickTextBinder;
-import com.iheartradio.heterogeneousadapter.HeterogeneousAdapter;
-import com.iheartradio.heterogeneousadapter.HeterogeneousDataCreator;
+import com.iheartradio.heterogeneousadapter.MultiTypeAdapter;
+import com.iheartradio.heterogeneousadapter.MultiTypeDataHelper;
 
 public class MainActivity extends AppCompatActivity {
 
@@ -21,10 +21,10 @@ public class MainActivity extends AppCompatActivity {
         RecyclerView recyclerView = (RecyclerView) findViewById(R.id.recycler_view);
         recyclerView.setLayoutManager(new LinearLayoutManager(this));
 
-        HeterogeneousAdapter adapter = new HeterogeneousAdapter(new SimpleClickTextBinder());
+        MultiTypeAdapter adapter = new MultiTypeAdapter(new SimpleClickTextBinder());
         recyclerView.setAdapter(adapter);
 
-        HeterogeneousDataCreator creator = new HeterogeneousDataCreator()
+        MultiTypeDataHelper creator = new MultiTypeDataHelper()
                 .add(new SimpleClickableTextData("Single Item Type List", new Runnable() {
                     @Override
                     public void run() {

@@ -4,7 +4,7 @@ import android.os.Bundle;
 
 import com.iheartradio.example.data.SimpleClickableTextData;
 import com.iheartradio.example.viewholders.SimpleItemViewHolder;
-import com.iheartradio.heterogeneousadapter.HeterogeneousBinder;
+import com.iheartradio.heterogeneousadapter.TypeAdapter;
 import com.iheartradio.heterogeneousadapter.InflatingContext;
 
 import java.util.List;
@@ -14,7 +14,7 @@ import java.util.List;
  * Created by Jonathan Muller on 4/25/17.
  */
 
-public class SimpleClickTextBinder extends HeterogeneousBinder<SimpleClickableTextData, SimpleItemViewHolder> {
+public class SimpleClickTextBinder extends TypeAdapter<SimpleClickableTextData, SimpleItemViewHolder> {
 
     @Override
     public boolean isMyData(Object data) {

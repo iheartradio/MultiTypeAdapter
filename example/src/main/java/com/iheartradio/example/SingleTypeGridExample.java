@@ -7,8 +7,8 @@ import android.support.v7.widget.RecyclerView;
 
 import com.iheartradio.example.data.ColorData;
 import com.iheartradio.example.typeadapters.GridItemBinder;
-import com.iheartradio.heterogeneousadapter.HeterogeneousAdapter;
-import com.iheartradio.heterogeneousadapter.HeterogeneousDataCreator;
+import com.iheartradio.heterogeneousadapter.MultiTypeAdapter;
+import com.iheartradio.heterogeneousadapter.MultiTypeDataHelper;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -29,15 +29,15 @@ public class SingleTypeGridExample extends BaseActivity {
         twoDataList.add(randomColor());
         twoDataList.add(randomColor());
 
-        HeterogeneousDataCreator builder = new HeterogeneousDataCreator()
+        MultiTypeDataHelper builder = new MultiTypeDataHelper()
                 .add(twoDataList);
 
         mAdapter.setData(builder.getData());
     }
 
     @Override
-    HeterogeneousAdapter onCreateAdapter() {
-        return new HeterogeneousAdapter(new GridItemBinder());
+    MultiTypeAdapter onCreateAdapter() {
+        return new MultiTypeAdapter(new GridItemBinder());
     }
 
     @Override

@@ -13,7 +13,7 @@ import java.util.List;
  * Created by Jonathan Muller on 2/27/17.
  */
 
-class HeterogeneousBinderImpl<D, V extends RecyclerView.ViewHolder> extends HeterogeneousBinder<D, V> {
+class TypeAdapterImpl<D, V extends RecyclerView.ViewHolder> extends TypeAdapter<D, V> {
 
     private final Function1<Object, Boolean> mIsMyData;
     private final Function1<InflatingContext, ? extends V> mOnCreateViewHolder;
@@ -22,12 +22,12 @@ class HeterogeneousBinderImpl<D, V extends RecyclerView.ViewHolder> extends Hete
     private final Consumer<? super V> mOnDetach;
     private final Supplier<Integer> mSpanSupplier;
 
-    HeterogeneousBinderImpl(final Function1<Object, Boolean> isMyData,
-                            final Function1<InflatingContext, ? extends V> onCreateViewHolder,
-                            final TriConsumer<? super V, ? super D, List<Object>> onBindViewHolder,
-                            final Consumer<? super V> onAttach,
-                            final Consumer<? super V> onDetach,
-                            final Supplier<Integer> getSpan) {
+    TypeAdapterImpl(final Function1<Object, Boolean> isMyData,
+                    final Function1<InflatingContext, ? extends V> onCreateViewHolder,
+                    final TriConsumer<? super V, ? super D, List<Object>> onBindViewHolder,
+                    final Consumer<? super V> onAttach,
+                    final Consumer<? super V> onDetach,
+                    final Supplier<Integer> getSpan) {
 
         mIsMyData = isMyData;
         mOnCreateViewHolder = onCreateViewHolder;
@@ -37,12 +37,12 @@ class HeterogeneousBinderImpl<D, V extends RecyclerView.ViewHolder> extends Hete
         mSpanSupplier = getSpan;
     }
 
-    HeterogeneousBinderImpl(final Class<?> targetClass,
-                            final Function1<InflatingContext, ? extends V> onCreateViewHolder,
-                            final TriConsumer<? super V, ? super D, List<Object>> onBindViewHolder,
-                            final Consumer<? super V> onAttach,
-                            final Consumer<? super V> onDetach,
-                            final Supplier<Integer> getSpan) {
+    TypeAdapterImpl(final Class<?> targetClass,
+                    final Function1<InflatingContext, ? extends V> onCreateViewHolder,
+                    final TriConsumer<? super V, ? super D, List<Object>> onBindViewHolder,
+                    final Consumer<? super V> onAttach,
+                    final Consumer<? super V> onDetach,
+                    final Supplier<Integer> getSpan) {
         this(new Function1<Object, Boolean>() {
             @Override
             public Boolean invoke(Object input) {

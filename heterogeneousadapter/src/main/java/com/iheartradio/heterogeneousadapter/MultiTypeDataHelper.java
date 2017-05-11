@@ -7,26 +7,26 @@ import java.util.List;
  * Created by Jonathan Muller on 3/11/17.
  */
 
-public class HeterogeneousDataCreator {
+public class MultiTypeDataHelper {
 
     private final ArrayList<Object> mData = new ArrayList<>();
 
-    public HeterogeneousDataCreator add(final Object data) {
+    public MultiTypeDataHelper add(final Object data) {
         mData.add(data);
         return this;
     }
 
-    public HeterogeneousDataCreator add(final List<?> data) {
+    public MultiTypeDataHelper add(final List<?> data) {
         mData.addAll(data);
         return this;
     }
 
-    public HeterogeneousDataCreator add(final int index, final Object data) {
+    public MultiTypeDataHelper add(final int index, final Object data) {
         mData.add(index, data);
         return this;
     }
 
-    public HeterogeneousDataCreator add(final int index, final List<?> data) {
+    public MultiTypeDataHelper add(final int index, final List<?> data) {
         mData.addAll(index, data);
         return this;
     }

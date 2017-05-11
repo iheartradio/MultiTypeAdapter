@@ -6,8 +6,8 @@ import android.support.v7.widget.RecyclerView;
 
 import com.iheartradio.example.typeadapters.LowerCaseStringBinder;
 import com.iheartradio.example.data.LowerCaseStringData;
-import com.iheartradio.heterogeneousadapter.HeterogeneousDataCreator;
-import com.iheartradio.heterogeneousadapter.HeterogeneousAdapter;
+import com.iheartradio.heterogeneousadapter.MultiTypeDataHelper;
+import com.iheartradio.heterogeneousadapter.MultiTypeAdapter;
 import com.iheartradio.heterogeneousadapter.ItemTouchHelperFactory;
 
 import java.util.ArrayList;
@@ -25,7 +25,7 @@ public class SingleItemTypeActivity extends BaseActivity {
         twoDataList.add(new LowerCaseStringData("3"));
         twoDataList.add(new LowerCaseStringData("4"));
 
-        HeterogeneousDataCreator builder = new HeterogeneousDataCreator()
+        MultiTypeDataHelper builder = new MultiTypeDataHelper()
                 .add(twoDataList)
                 .add(new LowerCaseStringData("5"));
 
@@ -33,8 +33,8 @@ public class SingleItemTypeActivity extends BaseActivity {
     }
 
     @Override
-    HeterogeneousAdapter onCreateAdapter() {
-        HeterogeneousAdapter adapter = new HeterogeneousAdapter(new LowerCaseStringBinder());
+    MultiTypeAdapter onCreateAdapter() {
+        MultiTypeAdapter adapter = new MultiTypeAdapter(new LowerCaseStringBinder());
 
         ItemTouchHelperFactory.create(adapter, mRecyclerView, true, true, false);
 

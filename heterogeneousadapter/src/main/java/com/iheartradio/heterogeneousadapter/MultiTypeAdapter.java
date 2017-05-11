@@ -18,28 +18,28 @@ import static android.support.v7.widget.RecyclerView.*;
  * Created by Jonathan Muller on 2/27/17.
  */
 
-public final class HeterogeneousAdapter extends RecyclerView.Adapter<ViewHolder> implements ItemTouchHelperAdapter {
+public final class MultiTypeAdapter extends RecyclerView.Adapter<ViewHolder> implements ItemTouchHelperAdapter {
 
-    private final BinderHandler mBinderHandler;
+    private final TypeAdapterHandler mTypeAdapterHandler;
 
     private SpanHandler mSpanHandler;
     private List<Object> mData = new ArrayList<>();
     private RecyclerView mRecyclerView;
 
-    public HeterogeneousAdapter(final List<HeterogeneousBinder<?, ?>> heterogeneousBinders) {
-        mBinderHandler = new BinderHandler(heterogeneousBinders);
+    public MultiTypeAdapter(final List<TypeAdapter<?, ?>> typeAdapters) {
+        mTypeAdapterHandler = new TypeAdapterHandler(typeAdapters);
         mSpanHandler = new GridLayoutSpanHandler(this);
     }
 
-    public HeterogeneousAdapter(final HeterogeneousBinder<?, ?> heterogeneousBinder) {
-        mBinderHandler = new BinderHandler(heterogeneousBinder);
+    public MultiTypeAdapter(final TypeAdapter<?, ?> typeAdapter) {
+        mTypeAdapterHandler = new TypeAdapterHandler(typeAdapter);
         mSpanHandler = new GridLayoutSpanHandler(this);
     }
 
     public void setData(final List<Object> data, final boolean useDiff) {
         DiffUtil.DiffResult diffResult = null;
         if (useDiff) {
-            diffResult = DiffUtil.calculateDiff(new HeterogeneousBinderDiffCallback(mBinderHandler, data, mData));
+            diffResult = DiffUtil.calculateDiff(new TypeAdapterDiffCallback(mTypeAdapterHandler, data, mData));
         }
 
         mData = data;
@@ -58,8 +58,8 @@ public final class HeterogeneousAdapter extends RecyclerView.Adapter<ViewHolder>
         return new ArrayList<>(mData);
     }
 
-    public BinderHandler binderHandler() {
-        return mBinderHandler;
+    public TypeAdapterHandler binderHandler() {
+        return mTypeAdapterHandler;
     }
 
     public void setSpanHandler(@Nullable final SpanHandler spanHandler) {
@@ -68,7 +68,7 @@ public final class HeterogeneousAdapter extends RecyclerView.Adapter<ViewHolder>
 
     @Override
     public ViewHolder onCreateViewHolder(final ViewGroup parent, final int viewType) {
-        return mBinderHandler.createViewHolder(parent, viewType);
+        return mTypeAdapterHandler.createViewHolder(parent, viewType);
     }
 
     @Override
@@ -76,7 +76,7 @@ public final class HeterogeneousAdapter extends RecyclerView.Adapter<ViewHolder>
 
     @Override
     public void onBindViewHolder(ViewHolder holder, int position, List<Object> payloads) {
-        mBinderHandler.bindViewHolder(holder, mData.get(position), payloads);
+        mTypeAdapterHandler.bindViewHolder(holder, mData.get(position), payloads);
     }
 
     @Override
@@ -86,24 +86,24 @@ public final class HeterogeneousAdapter extends RecyclerView.Adapter<ViewHolder>
 
     @Override
     public int getItemViewType(final int position) {
-        return mBinderHandler.getItemTypeForData(mData.get(position));
+        return mTypeAdapterHandler.getItemTypeForData(mData.get(position));
     }
 
     @Override
     public void onViewAttachedToWindow(final ViewHolder genericHolder) {
-        mBinderHandler.getBinderForType(genericHolder.getItemViewType()).onAttach(genericHolder);
+        mTypeAdapterHandler.getBinderForType(genericHolder.getItemViewType()).onAttach(genericHolder);
     }
 
     @Override
     public void onViewDetachedFromWindow(final ViewHolder genericHolder) {
-        mBinderHandler.getBinderForType(genericHolder.getItemViewType()).onDetach(genericHolder);
+        mTypeAdapterHandler.getBinderForType(genericHolder.getItemViewType()).onDetach(genericHolder);
     }
 
-    public HeterogeneousBinder<?, ?> getBinderForPosition(final int position) {
+    public TypeAdapter<?, ?> getBinderForPosition(final int position) {
         if (position >= mData.size()) {
             throw new ArrayIndexOutOfBoundsException("Position " + position + " is out of range for list of size " + mData.size());
         }
-        return mBinderHandler.getBinderForData(mData.get(position));
+        return mTypeAdapterHandler.getBinderForData(mData.get(position));
     }
 
     @Override

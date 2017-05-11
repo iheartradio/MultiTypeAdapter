@@ -9,9 +9,9 @@ import com.iheartradio.example.data.ColorData;
 import com.iheartradio.example.data.LowerCaseStringData;
 import com.iheartradio.example.typeadapters.GridItemBinder;
 import com.iheartradio.example.typeadapters.LowerCaseStringBinder;
-import com.iheartradio.heterogeneousadapter.HeterogeneousAdapter;
-import com.iheartradio.heterogeneousadapter.HeterogeneousBinder;
-import com.iheartradio.heterogeneousadapter.HeterogeneousDataCreator;
+import com.iheartradio.heterogeneousadapter.MultiTypeAdapter;
+import com.iheartradio.heterogeneousadapter.TypeAdapter;
+import com.iheartradio.heterogeneousadapter.MultiTypeDataHelper;
 import com.iheartradio.heterogeneousadapter.ItemTouchHelperFactory;
 
 import java.util.ArrayList;
@@ -23,7 +23,7 @@ public class MultiTypeGridExample extends BaseActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
 
-        HeterogeneousDataCreator builder = new HeterogeneousDataCreator()
+        MultiTypeDataHelper builder = new MultiTypeDataHelper()
                 .add(new LowerCaseStringData("Section 1"))
                 .add(randomColor())
                 .add(randomColor())
@@ -41,13 +41,13 @@ public class MultiTypeGridExample extends BaseActivity {
     }
 
     @Override
-    HeterogeneousAdapter onCreateAdapter() {
-        final List<HeterogeneousBinder<?, ?>> binders = new ArrayList<>();
+    MultiTypeAdapter onCreateAdapter() {
+        final List<TypeAdapter<?, ?>> binders = new ArrayList<>();
 
         binders.add(new GridItemBinder());
         binders.add(new LowerCaseStringBinder());
 
-        HeterogeneousAdapter adapter = new HeterogeneousAdapter(binders);
+        MultiTypeAdapter adapter = new MultiTypeAdapter(binders);
 
         ItemTouchHelperFactory.create(adapter, mRecyclerView, true, true, true);
 

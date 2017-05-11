@@ -9,18 +9,18 @@ import java.util.List;
  * Created by Jonathan Muller on 3/11/17.
  */
 
-public class HeterogeneousBinderDiffCallback extends DiffUtil.Callback {
+public class TypeAdapterDiffCallback extends DiffUtil.Callback {
 
     private final List<Object> mOldData;
     private final List<Object> mNewData;
-    private final BinderHandler mBinderHandler;
+    private final TypeAdapterHandler mTypeAdapterHandler;
 
-    public HeterogeneousBinderDiffCallback(final BinderHandler binderHandler,
-                                           final List<Object> newData,
-                                           final List<Object> oldData) {
+    public TypeAdapterDiffCallback(final TypeAdapterHandler typeAdapterHandler,
+                                   final List<Object> newData,
+                                   final List<Object> oldData) {
         mOldData = oldData;
         mNewData = newData;
-        mBinderHandler = binderHandler;
+        mTypeAdapterHandler = typeAdapterHandler;
     }
 
     @Override
@@ -35,7 +35,7 @@ public class HeterogeneousBinderDiffCallback extends DiffUtil.Callback {
 
     @Override
     public boolean areItemsTheSame(final int oldItemPosition, final int newItemPosition) {
-        return mBinderHandler.isDataTheSame(mOldData.get(oldItemPosition), mNewData.get(newItemPosition));
+        return mTypeAdapterHandler.isDataTheSame(mOldData.get(oldItemPosition), mNewData.get(newItemPosition));
     }
 
     @Override
@@ -46,6 +46,6 @@ public class HeterogeneousBinderDiffCallback extends DiffUtil.Callback {
     @Nullable
     @Override
     public Object getChangePayload(int oldItemPosition, int newItemPosition) {
-        return mBinderHandler.getChangePayload(mOldData.get(oldItemPosition), mNewData.get(newItemPosition));
+        return mTypeAdapterHandler.getChangePayload(mOldData.get(oldItemPosition), mNewData.get(newItemPosition));
     }
 }

@@ -11,15 +11,15 @@ import java.util.List;
  * Created by Jonathan Muller on 4/18/17.
  */
 
-public final class BinderHandler {
+public final class TypeAdapterHandler {
 
-    private final List<HeterogeneousBinder<?, ?>> mBinders;
+    private final List<TypeAdapter<?, ?>> mBinders;
 
-    BinderHandler(final List<HeterogeneousBinder<?, ?>> binders) {
+    TypeAdapterHandler(final List<TypeAdapter<?, ?>> binders) {
         mBinders = binders;
     }
 
-    BinderHandler(final HeterogeneousBinder<?, ?> binder) {
+    TypeAdapterHandler(final TypeAdapter<?, ?> binder) {
         mBinders = new ArrayList<>();
         mBinders.add(binder);
     }
@@ -29,26 +29,26 @@ public final class BinderHandler {
     }
 
     void bindViewHolder(final RecyclerView.ViewHolder genericHolder, final Object data, final List<Object> payloads) {
-        HeterogeneousBinder<Object, RecyclerView.ViewHolder> binder = getBinderForData(data);
+        TypeAdapter<Object, RecyclerView.ViewHolder> binder = getBinderForData(data);
         if (binder != null) {
             binder.onBindViewHolder(genericHolder, data, payloads);
         }
     }
 
-    public List<HeterogeneousBinder<?, ?>> getBinders() {
+    public List<TypeAdapter<?, ?>> getBinders() {
         return mBinders;
     }
 
     @SuppressWarnings("unchecked")
-    HeterogeneousBinder<Object, RecyclerView.ViewHolder> getBinderForType(final int type) {
-        return (HeterogeneousBinder<Object, RecyclerView.ViewHolder>) mBinders.get(type);
+    TypeAdapter<Object, RecyclerView.ViewHolder> getBinderForType(final int type) {
+        return (TypeAdapter<Object, RecyclerView.ViewHolder>) mBinders.get(type);
     }
 
     @SuppressWarnings("unchecked")
-    HeterogeneousBinder<Object, RecyclerView.ViewHolder> getBinderForData(final Object data) {
+    TypeAdapter<Object, RecyclerView.ViewHolder> getBinderForData(final Object data) {
         for (int i = 0; i < mBinders.size(); i++) {
             if (mBinders.get(i).isMyData(data)) {
-                return (HeterogeneousBinder<Object, RecyclerView.ViewHolder>) mBinders.get(i);
+                return (TypeAdapter<Object, RecyclerView.ViewHolder>) mBinders.get(i);
             }
         }
 

@@ -8,9 +8,9 @@ import com.iheartradio.example.data.UpperCaseStringData;
 import com.iheartradio.example.typeadapters.LowerCaseStringBinder;
 import com.iheartradio.example.data.LowerCaseStringData;
 import com.iheartradio.example.typeadapters.UpperCaseStringBinder;
-import com.iheartradio.heterogeneousadapter.HeterogeneousAdapter;
-import com.iheartradio.heterogeneousadapter.HeterogeneousBinder;
-import com.iheartradio.heterogeneousadapter.HeterogeneousDataCreator;
+import com.iheartradio.heterogeneousadapter.MultiTypeAdapter;
+import com.iheartradio.heterogeneousadapter.TypeAdapter;
+import com.iheartradio.heterogeneousadapter.MultiTypeDataHelper;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -27,7 +27,7 @@ public class MultiTypeListExample extends BaseActivity {
         twoDataList.add(new LowerCaseStringData("3"));
         twoDataList.add(new LowerCaseStringData("4"));
 
-        HeterogeneousDataCreator builder = new HeterogeneousDataCreator()
+        MultiTypeDataHelper builder = new MultiTypeDataHelper()
                 .add(twoDataList)
                 .add(new UpperCaseStringData("I'm some UpperCaseString Data"));
 
@@ -35,11 +35,11 @@ public class MultiTypeListExample extends BaseActivity {
     }
 
     @Override
-    HeterogeneousAdapter onCreateAdapter() {
-        List<HeterogeneousBinder<?, ?>> binders = new ArrayList<>();
+    MultiTypeAdapter onCreateAdapter() {
+        List<TypeAdapter<?, ?>> binders = new ArrayList<>();
         binders.add(new LowerCaseStringBinder());
         binders.add(new UpperCaseStringBinder());
-        return new HeterogeneousAdapter(binders);
+        return new MultiTypeAdapter(binders);
     }
 
     @Override

@@ -12,14 +12,14 @@ import kotlin.test.assertNull
 /**
  * Created by Jonathan Muller on 5/10/17.
  */
-class BinderHandlerTest: Spek({
+class TypeAdapterHandlerTest : Spek({
 
-    describe("BinderHandler") {
+    describe("TypeAdapterHandler") {
         context("created using a single binder") {
 
             val viewHolder = mock(ViewHolder::class.java)
 
-            val referenceBinder = object : HeterogeneousBinder<String, ViewHolder>() {
+            val referenceBinder = object : TypeAdapter<String, ViewHolder>() {
 
                 override fun isMyData(data: Any?): Boolean {
                     return data is String
@@ -31,7 +31,7 @@ class BinderHandlerTest: Spek({
 
             }
 
-            val binderHandler = BinderHandler(listOf(referenceBinder))
+            val binderHandler = TypeAdapterHandler(listOf(referenceBinder))
 
             on("returning a list of binders") {
 

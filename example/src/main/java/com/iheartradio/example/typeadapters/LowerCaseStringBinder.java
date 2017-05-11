@@ -2,7 +2,7 @@ package com.iheartradio.example.typeadapters;
 
 import com.iheartradio.example.data.LowerCaseStringData;
 import com.iheartradio.example.viewholders.ListItemTwoViewHolder;
-import com.iheartradio.heterogeneousadapter.HeterogeneousBinder;
+import com.iheartradio.heterogeneousadapter.TypeAdapter;
 import com.iheartradio.heterogeneousadapter.InflatingContext;
 
 import java.util.List;
@@ -11,7 +11,7 @@ import java.util.List;
  * Created by Jonathan Muller on 3/10/17.
  */
 
-public class LowerCaseStringBinder extends HeterogeneousBinder<LowerCaseStringData, ListItemTwoViewHolder> {
+public class LowerCaseStringBinder extends TypeAdapter<LowerCaseStringData, ListItemTwoViewHolder> {
 
     @Override
     public boolean isMyData(Object data) {

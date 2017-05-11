@@ -11,10 +11,10 @@ import com.iheartradio.heterogeneousadapter.interfaces.SpanHandler;
 
 public class GridLayoutSpanHandler implements SpanHandler {
 
-    private final HeterogeneousAdapter mAdapter;
+    private final MultiTypeAdapter mAdapter;
     private boolean mSpanLookupSet;
 
-    GridLayoutSpanHandler(final HeterogeneousAdapter adapter){
+    GridLayoutSpanHandler(final MultiTypeAdapter adapter){
         mAdapter = adapter;
         mSpanLookupSet = false;
     }

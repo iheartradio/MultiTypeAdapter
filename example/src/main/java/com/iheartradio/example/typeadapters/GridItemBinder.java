@@ -3,7 +3,7 @@ package com.iheartradio.example.typeadapters;
 import com.iheartradio.example.R;
 import com.iheartradio.example.data.ColorData;
 import com.iheartradio.example.viewholders.GenericViewholder;
-import com.iheartradio.heterogeneousadapter.HeterogeneousBinder;
+import com.iheartradio.heterogeneousadapter.TypeAdapter;
 import com.iheartradio.heterogeneousadapter.InflatingContext;
 
 import java.util.List;
@@ -12,7 +12,7 @@ import java.util.List;
  * Created by Jonathan Muller on 4/27/17.
  */
 
-public class GridItemBinder extends HeterogeneousBinder<ColorData, GenericViewholder> {
+public class GridItemBinder extends TypeAdapter<ColorData, GenericViewholder> {
 
     @Override
     public boolean isMyData(Object data) {
