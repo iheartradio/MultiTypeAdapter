@@ -1,5 +1,6 @@
 package com.iheartradio.heterogeneousadapter;
 
+import android.os.Bundle;
 import android.support.v7.widget.RecyclerView;
 
 import java.util.List;
@@ -29,4 +30,6 @@ public abstract class HeterogeneousBinder<D, V extends RecyclerView.ViewHolder> 
     public boolean isDataEqual(final D data1, final D data2) {
         return false;
     }
+
+    public Object getChangePayload(final D oldData, final D newData, final Bundle diffBundle) { return null; }
 }

@@ -1,5 +1,6 @@
 package com.iheartradio.heterogeneousadapter;
 
+import android.support.annotation.Nullable;
 import android.support.v7.util.DiffUtil;
 
 import java.util.List;
@@ -40,5 +41,11 @@ public class HeterogeneousBinderDiffCallback extends DiffUtil.Callback {
     @Override
     public boolean areContentsTheSame(final int oldItemPosition, final int newItemPosition) {
         return mOldData.get(oldItemPosition).equals(mNewData.get(newItemPosition));
+    }
+
+    @Nullable
+    @Override
+    public Object getChangePayload(int oldItemPosition, int newItemPosition) {
+        return mBinderHandler.getChangePayload(mOldData.get(oldItemPosition), mNewData.get(newItemPosition));
     }
 }

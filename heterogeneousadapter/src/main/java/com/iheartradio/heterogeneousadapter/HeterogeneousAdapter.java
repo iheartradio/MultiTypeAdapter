@@ -20,8 +20,9 @@ import static android.support.v7.widget.RecyclerView.*;
 
 public final class HeterogeneousAdapter extends RecyclerView.Adapter<ViewHolder> implements ItemTouchHelperAdapter {
 
+    private final BinderHandler mBinderHandler;
+
     private SpanHandler mSpanHandler;
-    private BinderHandler mBinderHandler;
     private List<Object> mData = new ArrayList<>();
     private RecyclerView mRecyclerView;
 

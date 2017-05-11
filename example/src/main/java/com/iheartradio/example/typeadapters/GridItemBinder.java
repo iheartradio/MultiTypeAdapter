@@ -6,6 +6,8 @@ import com.iheartradio.example.viewholders.GenericViewholder;
 import com.iheartradio.heterogeneousadapter.HeterogeneousBinder;
 import com.iheartradio.heterogeneousadapter.InflatingContext;
 
+import java.util.List;
+
 /**
  * Created by Jonathan Muller on 4/27/17.
  */
@@ -28,7 +30,7 @@ public class GridItemBinder extends HeterogeneousBinder<ColorData, GenericViewho
     }
 
     @Override
-    public void onBindViewHolder(GenericViewholder viewHolder, ColorData data) {
+    public void onBindViewHolder(final GenericViewholder viewHolder, final ColorData data, final List<Object> payloads) {
         viewHolder.bindColor(data);
     }
 }

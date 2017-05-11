@@ -5,6 +5,8 @@ import com.iheartradio.example.viewholders.ListItemOneViewHolder;
 import com.iheartradio.heterogeneousadapter.HeterogeneousBinder;
 import com.iheartradio.heterogeneousadapter.InflatingContext;
 
+import java.util.List;
+
 /**
  * Created by Jonathan Muller on 3/7/17.
  */
@@ -30,7 +32,7 @@ public class UpperCaseStringBinder extends HeterogeneousBinder<UpperCaseStringDa
     }
 
     @Override
-    public void onBindViewHolder(ListItemOneViewHolder viewHolder, UpperCaseStringData data) {
+    public void onBindViewHolder(ListItemOneViewHolder viewHolder, UpperCaseStringData data, final List<Object> payloads) {
         viewHolder.bind(data);
     }
 }

@@ -1,5 +1,6 @@
 package com.iheartradio.heterogeneousadapter;
 
+import android.os.Bundle;
 import android.support.v7.widget.RecyclerView;
 import android.view.ViewGroup;
 
@@ -70,5 +71,9 @@ public final class BinderHandler {
         } else {
             return false;
         }
+    }
+
+    Object getChangePayload(final Object oldData, final Object newData) {
+        return getBinderForData(newData).getChangePayload(oldData, newData, new Bundle());
     }
 }

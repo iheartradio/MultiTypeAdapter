@@ -5,6 +5,8 @@ import com.iheartradio.example.viewholders.ListItemTwoViewHolder;
 import com.iheartradio.heterogeneousadapter.HeterogeneousBinder;
 import com.iheartradio.heterogeneousadapter.InflatingContext;
 
+import java.util.List;
+
 /**
  * Created by Jonathan Muller on 3/10/17.
  */
@@ -30,7 +32,9 @@ public class LowerCaseStringBinder extends HeterogeneousBinder<LowerCaseStringDa
     }
 
     @Override
-    public void onBindViewHolder(final ListItemTwoViewHolder viewHolder, final LowerCaseStringData data) {
+    public void onBindViewHolder(final ListItemTwoViewHolder viewHolder,
+                                 final LowerCaseStringData data,
+                                 final List<Object> payloads) {
         viewHolder.bind(data);
     }
 
