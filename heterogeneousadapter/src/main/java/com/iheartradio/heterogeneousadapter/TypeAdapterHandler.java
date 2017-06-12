@@ -25,7 +25,7 @@ public final class TypeAdapterHandler {
     }
 
     RecyclerView.ViewHolder createViewHolder(final ViewGroup parent, final int viewType) {
-        return mBinders.get(viewType).onCreateViewHolder(InflatingContext.fromParent(parent));
+        return mBinders.get(viewType).onCreateViewHolder(parent);
     }
 
     void bindViewHolder(final RecyclerView.ViewHolder genericHolder, final Object data, final List<Object> payloads) {

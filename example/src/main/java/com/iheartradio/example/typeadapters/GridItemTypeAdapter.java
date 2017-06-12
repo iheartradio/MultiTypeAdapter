@@ -1,10 +1,11 @@
 package com.iheartradio.example.typeadapters;
 
+import android.view.ViewGroup;
+
 import com.iheartradio.example.R;
 import com.iheartradio.example.data.ColorData;
 import com.iheartradio.example.viewholders.GenericViewholder;
 import com.iheartradio.heterogeneousadapter.TypeAdapter;
-import com.iheartradio.heterogeneousadapter.InflatingContext;
 
 import java.util.List;
 
@@ -20,8 +21,8 @@ public class GridItemTypeAdapter extends TypeAdapter<ColorData, GenericViewholde
     }
 
     @Override
-    public GenericViewholder onCreateViewHolder(InflatingContext inflating) {
-        return GenericViewholder.create(inflating, R.layout.grid_item);
+    public GenericViewholder onCreateViewHolder(final ViewGroup parent) {
+        return GenericViewholder.create(parent, R.layout.grid_item);
     }
 
     @Override

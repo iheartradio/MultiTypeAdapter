@@ -1,11 +1,12 @@
 package com.iheartradio.heterogeneousadapter;
 
 import android.support.v7.widget.RecyclerView;
+import android.view.ViewGroup;
 
-import com.iheartradio.heterogeneousadapter.interfaces.TriConsumer;
 import com.iheartradio.heterogeneousadapter.interfaces.Consumer;
 import com.iheartradio.heterogeneousadapter.interfaces.Function1;
 import com.iheartradio.heterogeneousadapter.interfaces.Supplier;
+import com.iheartradio.heterogeneousadapter.interfaces.TriConsumer;
 
 import java.util.List;
 
@@ -16,14 +17,14 @@ import java.util.List;
 class TypeAdapterImpl<D, V extends RecyclerView.ViewHolder> extends TypeAdapter<D, V> {
 
     private final Function1<Object, Boolean> mIsMyData;
-    private final Function1<InflatingContext, ? extends V> mOnCreateViewHolder;
+    private final Function1<ViewGroup, ? extends V> mOnCreateViewHolder;
     private final TriConsumer<? super V, ? super D, List<Object>> mOnBindViewHolder;
     private final Consumer<? super V> mOnAttach;
     private final Consumer<? super V> mOnDetach;
     private final Supplier<Integer> mSpanSupplier;
 
     TypeAdapterImpl(final Function1<Object, Boolean> isMyData,
-                    final Function1<InflatingContext, ? extends V> onCreateViewHolder,
+                    final Function1<ViewGroup, ? extends V> onCreateViewHolder,
                     final TriConsumer<? super V, ? super D, List<Object>> onBindViewHolder,
                     final Consumer<? super V> onAttach,
                     final Consumer<? super V> onDetach,
@@ -38,7 +39,7 @@ class TypeAdapterImpl<D, V extends RecyclerView.ViewHolder> extends TypeAdapter<
     }
 
     TypeAdapterImpl(final Class<?> targetClass,
-                    final Function1<InflatingContext, ? extends V> onCreateViewHolder,
+                    final Function1<ViewGroup, ? extends V> onCreateViewHolder,
                     final TriConsumer<? super V, ? super D, List<Object>> onBindViewHolder,
                     final Consumer<? super V> onAttach,
                     final Consumer<? super V> onDetach,
@@ -58,7 +59,7 @@ class TypeAdapterImpl<D, V extends RecyclerView.ViewHolder> extends TypeAdapter<
     }
 
     @Override
-    public V onCreateViewHolder(final InflatingContext inflating) {
+    public V onCreateViewHolder(final ViewGroup inflating) {
         return mOnCreateViewHolder.invoke(inflating);
     }
 

@@ -12,7 +12,6 @@ import com.iheartradio.example.typeadapters.LowerCaseStringTypeAdapter;
 import com.iheartradio.heterogeneousadapter.MultiTypeAdapter;
 import com.iheartradio.heterogeneousadapter.TypeAdapter;
 import com.iheartradio.heterogeneousadapter.MultiTypeDataHelper;
-import com.iheartradio.heterogeneousadapter.ItemTouchHelperFactory;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -47,11 +46,7 @@ public class MultiTypeGridExample extends BaseActivity {
         binders.add(new GridItemTypeAdapter());
         binders.add(new LowerCaseStringTypeAdapter());
 
-        MultiTypeAdapter adapter = new MultiTypeAdapter(binders);
-
-        ItemTouchHelperFactory.create(adapter, mRecyclerView, true, true, true);
-
-        return adapter;
+        return new MultiTypeAdapter(binders);
     }
 
     @Override

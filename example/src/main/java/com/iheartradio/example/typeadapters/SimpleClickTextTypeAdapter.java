@@ -1,11 +1,11 @@
 package com.iheartradio.example.typeadapters;
 
 import android.os.Bundle;
+import android.view.ViewGroup;
 
 import com.iheartradio.example.data.SimpleClickableTextData;
 import com.iheartradio.example.viewholders.SimpleItemViewHolder;
 import com.iheartradio.heterogeneousadapter.TypeAdapter;
-import com.iheartradio.heterogeneousadapter.InflatingContext;
 
 import java.util.List;
 
@@ -22,8 +22,8 @@ public class SimpleClickTextTypeAdapter extends TypeAdapter<SimpleClickableTextD
     }
 
     @Override
-    public SimpleItemViewHolder onCreateViewHolder(InflatingContext inflating) {
-        return SimpleItemViewHolder.create(inflating);
+    public SimpleItemViewHolder onCreateViewHolder(final ViewGroup parent) {
+        return SimpleItemViewHolder.create(parent);
     }
 
     @Override

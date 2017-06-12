@@ -8,7 +8,6 @@ import com.iheartradio.example.typeadapters.LowerCaseStringTypeAdapter;
 import com.iheartradio.example.data.LowerCaseStringData;
 import com.iheartradio.heterogeneousadapter.MultiTypeDataHelper;
 import com.iheartradio.heterogeneousadapter.MultiTypeAdapter;
-import com.iheartradio.heterogeneousadapter.ItemTouchHelperFactory;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -34,11 +33,7 @@ public class SingleItemTypeActivity extends BaseActivity {
 
     @Override
     MultiTypeAdapter onCreateAdapter() {
-        MultiTypeAdapter adapter = new MultiTypeAdapter(new LowerCaseStringTypeAdapter());
-
-        ItemTouchHelperFactory.create(adapter, mRecyclerView, true, true, false);
-
-        return adapter;
+        return new MultiTypeAdapter(new LowerCaseStringTypeAdapter());
     }
 
     @Override

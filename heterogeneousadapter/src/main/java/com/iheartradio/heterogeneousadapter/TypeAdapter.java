@@ -2,6 +2,7 @@ package com.iheartradio.heterogeneousadapter;
 
 import android.os.Bundle;
 import android.support.v7.widget.RecyclerView;
+import android.view.ViewGroup;
 
 import java.util.List;
 
@@ -15,7 +16,7 @@ public abstract class TypeAdapter<D, V extends RecyclerView.ViewHolder> {
 
     public abstract boolean isMyData(final Object data);
 
-    public abstract V onCreateViewHolder(final InflatingContext inflating);
+    public abstract V onCreateViewHolder(final ViewGroup parent);
 
     public void onBindViewHolder(final V viewHolder, final D data, final List<Object> payloads) { }
 

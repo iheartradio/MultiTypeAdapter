@@ -5,20 +5,18 @@ import android.support.v7.util.DiffUtil;
 import android.support.v7.widget.RecyclerView;
 import android.view.ViewGroup;
 
-import com.iheartradio.heterogeneousadapter.interfaces.ItemTouchHelperAdapter;
 import com.iheartradio.heterogeneousadapter.interfaces.SpanHandler;
 
 import java.util.ArrayList;
-import java.util.Collections;
 import java.util.List;
 
-import static android.support.v7.widget.RecyclerView.*;
+import static android.support.v7.widget.RecyclerView.ViewHolder;
 
 /**
  * Created by Jonathan Muller on 2/27/17.
  */
 
-public final class MultiTypeAdapter extends RecyclerView.Adapter<ViewHolder> implements ItemTouchHelperAdapter {
+public final class MultiTypeAdapter extends RecyclerView.Adapter<ViewHolder> {
 
     private final TypeAdapterHandler mTypeAdapterHandler;
 
@@ -36,9 +34,9 @@ public final class MultiTypeAdapter extends RecyclerView.Adapter<ViewHolder> imp
         mSpanHandler = new GridLayoutSpanHandler(this);
     }
 
-    public void setData(final List<Object> data, final boolean useDiff) {
+    public void setData(final List<Object> data, final boolean animDiff) {
         DiffUtil.DiffResult diffResult = null;
-        if (useDiff) {
+        if (animDiff) {
             diffResult = DiffUtil.calculateDiff(new TypeAdapterDiffCallback(mTypeAdapterHandler, data, mData));
         }
 
@@ -56,10 +54,6 @@ public final class MultiTypeAdapter extends RecyclerView.Adapter<ViewHolder> imp
 
     public List<Object> data() {
         return new ArrayList<>(mData);
-    }
-
-    public TypeAdapterHandler binderHandler() {
-        return mTypeAdapterHandler;
     }
 
     public void setSpanHandler(@Nullable final SpanHandler spanHandler) {
@@ -120,26 +114,5 @@ public final class MultiTypeAdapter extends RecyclerView.Adapter<ViewHolder> imp
         if (mSpanHandler != null && mRecyclerView != null) {
             mSpanHandler.calculateSpan(mRecyclerView.getLayoutManager());
         }
-    }
-
-    @Override
-    public void onItemMove(int fromPosition, int toPosition) {
-        if (fromPosition < toPosition) {
-            for (int i = fromPosition; i < toPosition; i++) {
-                Collections.swap(mData, i, i + 1);
-            }
-        } else {
-            for (int i = fromPosition; i > toPosition; i--) {
-                Collections.swap(mData, i, i - 1);
-            }
-        }
-
-        notifyItemMoved(fromPosition, toPosition);
-    }
-
-    @Override
-    public void onItemDismiss(int position) {
-        mData.remove(position);
-        notifyItemRemoved(position);
     }
 }

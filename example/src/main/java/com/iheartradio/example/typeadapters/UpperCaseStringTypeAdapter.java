@@ -1,9 +1,10 @@
 package com.iheartradio.example.typeadapters;
 
+import android.view.ViewGroup;
+
 import com.iheartradio.example.data.UpperCaseStringData;
 import com.iheartradio.example.viewholders.ListItemOneViewHolder;
 import com.iheartradio.heterogeneousadapter.TypeAdapter;
-import com.iheartradio.heterogeneousadapter.InflatingContext;
 
 import java.util.List;
 
@@ -19,8 +20,8 @@ public class UpperCaseStringTypeAdapter extends TypeAdapter<UpperCaseStringData,
     }
 
     @Override
-    public ListItemOneViewHolder onCreateViewHolder(InflatingContext inflating) {
-        return ListItemOneViewHolder.create(inflating);
+    public ListItemOneViewHolder onCreateViewHolder(final ViewGroup parent) {
+        return ListItemOneViewHolder.create(parent);
     }
 
     @Override

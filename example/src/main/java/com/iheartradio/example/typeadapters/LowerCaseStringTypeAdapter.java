@@ -1,9 +1,10 @@
 package com.iheartradio.example.typeadapters;
 
+import android.view.ViewGroup;
+
 import com.iheartradio.example.data.LowerCaseStringData;
 import com.iheartradio.example.viewholders.ListItemTwoViewHolder;
 import com.iheartradio.heterogeneousadapter.TypeAdapter;
-import com.iheartradio.heterogeneousadapter.InflatingContext;
 
 import java.util.List;
 
@@ -19,8 +20,8 @@ public class LowerCaseStringTypeAdapter extends TypeAdapter<LowerCaseStringData,
     }
 
     @Override
-    public ListItemTwoViewHolder onCreateViewHolder(InflatingContext inflating) {
-        return ListItemTwoViewHolder.create(inflating);
+    public ListItemTwoViewHolder onCreateViewHolder(final ViewGroup parent) {
+        return ListItemTwoViewHolder.create(parent);
     }
 
     @Override
