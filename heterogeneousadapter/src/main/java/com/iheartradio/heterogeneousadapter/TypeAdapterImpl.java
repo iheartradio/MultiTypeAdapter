@@ -16,6 +16,8 @@ import java.util.List;
 
 class TypeAdapterImpl<D, V extends RecyclerView.ViewHolder> extends TypeAdapter<D, V> {
 
+    private static final int DEFAULT_SPAN = 1;
+
     private final Function1<Object, Boolean> mIsMyData;
     private final Function1<ViewGroup, ? extends V> mOnCreateViewHolder;
     private final TriConsumer<? super V, ? super D, List<Object>> mOnBindViewHolder;
@@ -65,22 +67,32 @@ class TypeAdapterImpl<D, V extends RecyclerView.ViewHolder> extends TypeAdapter<
 
     @Override
     public void onBindViewHolder(final V viewHolder, final D data, final List<Object> payloads) {
-        mOnBindViewHolder.invoke(viewHolder, data, payloads);
+        if (mOnBindViewHolder != null) {
+            mOnBindViewHolder.invoke(viewHolder, data, payloads);
+        }
     }
 
     @Override
     public void onAttach(V viewHolder) {
-        mOnAttach.invoke(viewHolder);
+        if (mOnAttach != null) {
+            mOnAttach.invoke(viewHolder);
+        }
     }
 
     @Override
     public void onDetach(V viewHolder) {
-        mOnDetach.invoke(viewHolder);
+        if (mOnDetach != null) {
+            mOnDetach.invoke(viewHolder);
+        }
     }
 
     @Override
     public int getSpan() {
-        return mSpanSupplier.invoke();
+        if (mSpanSupplier != null) {
+            return mSpanSupplier.invoke();
+        } else {
+            return DEFAULT_SPAN;
+        }
     }
 
 }

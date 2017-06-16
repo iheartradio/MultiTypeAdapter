@@ -20,49 +20,23 @@ public class TypeAdapterFactory {
 
     public static <D, V extends RecyclerView.ViewHolder> TypeAdapter<D, V> create(final Class<D> targetClass,
                                                                                   final Function1<ViewGroup, ? extends V> onCreateViewHolder) {
-        return new TypeAdapterImpl<>(targetClass, onCreateViewHolder,
-                new TriConsumer<V, D, List<Object>>() {
-                    @Override
-                    public void invoke(V v, D d, List<Object> payloads) {
-
-                    }
-                }, new Consumer<V>() {
-            @Override
-            public void invoke(final V viewHolder) {
-
-            }
-        }, new Consumer<V>() {
-            @Override
-            public void invoke(final V viewHolder) {
-
-            }
-        }, new Supplier<Integer>() {
-            @Override
-            public Integer invoke() {
-                return DEFAULT_SPAN;
-            }
-        });
+        return new TypeAdapterImpl<>(targetClass,
+                onCreateViewHolder,
+                null,
+                null,
+                null,
+                null);
     }
 
     public static <D, V extends RecyclerView.ViewHolder> TypeAdapter<D, V> create(final Class<D> targetClass,
                                                                                   final Function1<ViewGroup, ? extends V> onCreateViewHolder,
                                                                                   final TriConsumer<? super V, ? super D, List<Object>> onBindViewHolder) {
-        return new TypeAdapterImpl<>(targetClass, onCreateViewHolder, onBindViewHolder, new Consumer<V>() {
-            @Override
-            public void invoke(final V viewHolder) {
-
-            }
-        }, new Consumer<V>() {
-            @Override
-            public void invoke(final V viewHolder) {
-
-            }
-        }, new Supplier<Integer>() {
-            @Override
-            public Integer invoke() {
-                return DEFAULT_SPAN;
-            }
-        });
+        return new TypeAdapterImpl<>(targetClass,
+                onCreateViewHolder,
+                onBindViewHolder,
+                null,
+                null,
+                null);
     }
 
     public static <D, V extends RecyclerView.ViewHolder> TypeAdapter<D, V> create(final Class<D> targetClass,
@@ -70,29 +44,24 @@ public class TypeAdapterFactory {
                                                                                   final TriConsumer<? super V, ? super D, List<Object>> onBindViewHolder,
                                                                                   final Consumer<? super V> onAttach,
                                                                                   final Consumer<? super V> onDetach) {
-        return new TypeAdapterImpl<>(targetClass, onCreateViewHolder, onBindViewHolder, onAttach, onDetach, new Supplier<Integer>() {
-            @Override
-            public Integer invoke() {
-                return DEFAULT_SPAN;
-            }
-        });
+        return new TypeAdapterImpl<>(targetClass,
+                onCreateViewHolder,
+                onBindViewHolder,
+                onAttach,
+                onDetach,
+                null);
     }
 
     public static <D, V extends RecyclerView.ViewHolder> TypeAdapter<D, V> create(final Class<D> targetClass,
                                                                                   final Function1<ViewGroup, ? extends V> onCreateViewHolder,
                                                                                   final TriConsumer<? super V, ? super D, List<Object>> onBindViewHolder,
                                                                                   final Supplier<Integer> spanSupplier) {
-        return new TypeAdapterImpl<>(targetClass, onCreateViewHolder, onBindViewHolder, new Consumer<V>() {
-            @Override
-            public void invoke(final V viewHolder) {
-
-            }
-        }, new Consumer<V>() {
-            @Override
-            public void invoke(final V viewHolder) {
-
-            }
-        }, spanSupplier);
+        return new TypeAdapterImpl<>(targetClass,
+                onCreateViewHolder,
+                onBindViewHolder,
+                null,
+                null,
+                spanSupplier);
     }
 
     public static <D, V extends RecyclerView.ViewHolder> TypeAdapter<D, V> create(final Function1<Object, Boolean> isMyData,
@@ -100,12 +69,12 @@ public class TypeAdapterFactory {
                                                                                   final TriConsumer<? super V, ? super D, List<Object>> onBindViewHolder,
                                                                                   final Consumer<? super V> onAttach,
                                                                                   final Consumer<? super V> onDetach) {
-        return new TypeAdapterImpl<>(isMyData, onCreateViewHolder, onBindViewHolder, onAttach, onDetach, new Supplier<Integer>() {
-            @Override
-            public Integer invoke() {
-                return DEFAULT_SPAN;
-            }
-        });
+        return new TypeAdapterImpl<>(isMyData,
+                onCreateViewHolder,
+                onBindViewHolder,
+                onAttach,
+                onDetach,
+                null);
     }
 
     public static <D, V extends RecyclerView.ViewHolder> TypeAdapter<D, V> create(final Class<D> targetClass,
@@ -114,6 +83,11 @@ public class TypeAdapterFactory {
                                                                                   final Consumer<? super V> onAttach,
                                                                                   final Consumer<? super V> onDetach,
                                                                                   final Supplier<Integer> spanSupplier) {
-        return new TypeAdapterImpl<>(targetClass, onCreateViewHolder, onBindViewHolder, onAttach, onDetach, spanSupplier);
+        return new TypeAdapterImpl<>(targetClass,
+                onCreateViewHolder,
+                onBindViewHolder,
+                onAttach,
+                onDetach,
+                spanSupplier);
     }
 }
