@@ -1,9 +1,10 @@
 package com.iheartradio.heterogeneousadapter;
 
 import android.os.Bundle;
+import android.support.annotation.NonNull;
+import android.support.annotation.Nullable;
 import android.support.v7.widget.RecyclerView;
 import android.view.ViewGroup;
-
 import java.util.ArrayList;
 import java.util.List;
 
@@ -11,24 +12,23 @@ public final class TypeAdapterHandler {
 
     private final List<TypeAdapter<?, ?>> mBinders;
 
-    TypeAdapterHandler(final List<TypeAdapter<?, ?>> binders) {
+    TypeAdapterHandler(@NonNull final List<TypeAdapter<?, ?>> binders) {
         mBinders = binders;
     }
 
-    TypeAdapterHandler(final TypeAdapter<?, ?> binder) {
+    TypeAdapterHandler(@NonNull final TypeAdapter<?, ?> binder) {
         mBinders = new ArrayList<>();
         mBinders.add(binder);
     }
 
-    RecyclerView.ViewHolder createViewHolder(final ViewGroup parent, final int viewType) {
+    RecyclerView.ViewHolder createViewHolder(@NonNull final ViewGroup parent, final int viewType) {
         return mBinders.get(viewType).onCreateViewHolder(parent);
     }
 
-    void bindViewHolder(final RecyclerView.ViewHolder genericHolder, final Object data, final List<Object> payloads) {
-        TypeAdapter<Object, RecyclerView.ViewHolder> binder = getBinderForData(data);
-        if (binder != null) {
-            binder.onBindViewHolder(genericHolder, data, payloads);
-        }
+    void bindViewHolder(@NonNull final RecyclerView.ViewHolder genericHolder,
+                        @NonNull final Object data,
+                        @Nullable final List<Object> payloads) {
+        getBinderForData(data).onBindViewHolder(genericHolder, data, payloads);
     }
 
     public List<TypeAdapter<?, ?>> getBinders() {
@@ -41,7 +41,7 @@ public final class TypeAdapterHandler {
     }
 
     @SuppressWarnings("unchecked")
-    TypeAdapter<Object, RecyclerView.ViewHolder> getBinderForData(final Object data) {
+    TypeAdapter<Object, RecyclerView.ViewHolder> getBinderForData(@NonNull final Object data) {
         for (int i = 0; i < mBinders.size(); i++) {
             if (mBinders.get(i).isMyData(data)) {
                 return (TypeAdapter<Object, RecyclerView.ViewHolder>) mBinders.get(i);

@@ -1,14 +1,18 @@
 package com.iheartradio.heterogeneousadapter;
 
+import android.support.annotation.NonNull;
+import android.support.annotation.Nullable;
 import android.support.v7.widget.RecyclerView;
 import android.view.ViewGroup;
-
 import com.iheartradio.heterogeneousadapter.interfaces.Consumer;
 import com.iheartradio.heterogeneousadapter.interfaces.Function1;
 import com.iheartradio.heterogeneousadapter.interfaces.Supplier;
 import com.iheartradio.heterogeneousadapter.interfaces.TriConsumer;
-
 import java.util.List;
+
+/**
+ * Created by Jonathan Muller on 2/27/17.
+ */
 
 class TypeAdapterImpl<D, V extends RecyclerView.ViewHolder> extends TypeAdapter<D, V> {
 
@@ -21,12 +25,12 @@ class TypeAdapterImpl<D, V extends RecyclerView.ViewHolder> extends TypeAdapter<
     private final Consumer<? super V> mOnDetach;
     private final Supplier<Integer> mSpanSupplier;
 
-    TypeAdapterImpl(final Function1<Object, Boolean> isMyData,
-                    final Function1<ViewGroup, ? extends V> onCreateViewHolder,
-                    final TriConsumer<? super V, ? super D, List<Object>> onBindViewHolder,
-                    final Consumer<? super V> onAttach,
-                    final Consumer<? super V> onDetach,
-                    final Supplier<Integer> getSpan) {
+    TypeAdapterImpl(@NonNull final Function1<Object, Boolean> isMyData,
+                    @NonNull final Function1<ViewGroup, ? extends V> onCreateViewHolder,
+                    @Nullable final TriConsumer<? super V, ? super D, List<Object>> onBindViewHolder,
+                    @Nullable final Consumer<? super V> onAttach,
+                    @Nullable final Consumer<? super V> onDetach,
+                    @Nullable final Supplier<Integer> getSpan) {
 
         mIsMyData = isMyData;
         mOnCreateViewHolder = onCreateViewHolder;
@@ -36,12 +40,12 @@ class TypeAdapterImpl<D, V extends RecyclerView.ViewHolder> extends TypeAdapter<
         mSpanSupplier = getSpan;
     }
 
-    TypeAdapterImpl(final Class<?> targetClass,
-                    final Function1<ViewGroup, ? extends V> onCreateViewHolder,
-                    final TriConsumer<? super V, ? super D, List<Object>> onBindViewHolder,
-                    final Consumer<? super V> onAttach,
-                    final Consumer<? super V> onDetach,
-                    final Supplier<Integer> getSpan) {
+    TypeAdapterImpl(@NonNull final Class<?> targetClass,
+                    @NonNull final Function1<ViewGroup, ? extends V> onCreateViewHolder,
+                    @Nullable final TriConsumer<? super V, ? super D, List<Object>> onBindViewHolder,
+                    @Nullable final Consumer<? super V> onAttach,
+                    @Nullable final Consumer<? super V> onDetach,
+                    @Nullable final Supplier<Integer> getSpan) {
         this(new Function1<Object, Boolean>() {
             @Override
             public Boolean invoke(Object input) {
