@@ -1,7 +1,7 @@
 package com.iheartradio.heterogeneousadapter;
 
+import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
-import android.support.v7.util.DiffUtil;
 import android.support.v7.widget.RecyclerView;
 import android.view.ViewGroup;
 
@@ -12,10 +12,6 @@ import java.util.List;
 
 import static android.support.v7.widget.RecyclerView.ViewHolder;
 
-/**
- * Created by Jonathan Muller on 2/27/17.
- */
-
 public final class MultiTypeAdapter extends RecyclerView.Adapter<ViewHolder> {
 
     private final TypeAdapterHandler mTypeAdapterHandler;
@@ -24,34 +20,36 @@ public final class MultiTypeAdapter extends RecyclerView.Adapter<ViewHolder> {
     private List<Object> mData = new ArrayList<>();
     private RecyclerView mRecyclerView;
 
-    public MultiTypeAdapter(final List<TypeAdapter<?, ?>> typeAdapters) {
+    public MultiTypeAdapter(@NonNull final List<TypeAdapter<?, ?>> typeAdapters) {
         mTypeAdapterHandler = new TypeAdapterHandler(typeAdapters);
         mSpanHandler = new GridLayoutSpanHandler(this);
     }
 
-    public MultiTypeAdapter(final TypeAdapter<?, ?> typeAdapter) {
+    public MultiTypeAdapter(@NonNull final TypeAdapter<?, ?> typeAdapter) {
         mTypeAdapterHandler = new TypeAdapterHandler(typeAdapter);
         mSpanHandler = new GridLayoutSpanHandler(this);
     }
 
-    public void setData(final List<Object> data, final boolean animDiff) {
-        DiffUtil.DiffResult diffResult = null;
-        if (animDiff) {
-            diffResult = DiffUtil.calculateDiff(new TypeAdapterDiffCallback(mTypeAdapterHandler, data, mData));
-        }
+    public void setData(@NonNull final List<Object> data, final boolean animDiff) {
+//        DiffUtil.DiffResult diffResult = null;
+//        if (animDiff) {
+//            diffResult = DiffUtil.calculateDiff(new TypeAdapterDiffCallback(mTypeAdapterHandler, data, mData));
+//        }
 
         mData = data;
+        notifyDataSetChanged();
         setupSpanHandling();
 
-        if (diffResult != null) {
-            diffResult.dispatchUpdatesTo(this);
-        }
+//        if (diffResult != null) {
+//            diffResult.dispatchUpdatesTo(this);
+//        }
     }
 
-    public void setData(final List<Object> data) {
+    public void setData(@NonNull final List<Object> data) {
         setData(data, true);
     }
 
+    @NonNull
     public List<Object> data() {
         return new ArrayList<>(mData);
     }
@@ -61,15 +59,15 @@ public final class MultiTypeAdapter extends RecyclerView.Adapter<ViewHolder> {
     }
 
     @Override
-    public ViewHolder onCreateViewHolder(final ViewGroup parent, final int viewType) {
+    public ViewHolder onCreateViewHolder(@NonNull final ViewGroup parent, final int viewType) {
         return mTypeAdapterHandler.createViewHolder(parent, viewType);
     }
 
     @Override
-    public void onBindViewHolder(ViewHolder holder, int position) { /* not used */ }
+    public void onBindViewHolder(@NonNull final ViewHolder holder, int position) { /* not used */ }
 
     @Override
-    public void onBindViewHolder(ViewHolder holder, int position, List<Object> payloads) {
+    public void onBindViewHolder(@NonNull ViewHolder holder, int position, @Nullable final List<Object> payloads) {
         mTypeAdapterHandler.bindViewHolder(holder, mData.get(position), payloads);
     }
 
@@ -84,12 +82,12 @@ public final class MultiTypeAdapter extends RecyclerView.Adapter<ViewHolder> {
     }
 
     @Override
-    public void onViewAttachedToWindow(final ViewHolder genericHolder) {
+    public void onViewAttachedToWindow(@NonNull final ViewHolder genericHolder) {
         mTypeAdapterHandler.getBinderForType(genericHolder.getItemViewType()).onAttach(genericHolder);
     }
 
     @Override
-    public void onViewDetachedFromWindow(final ViewHolder genericHolder) {
+    public void onViewDetachedFromWindow(@NonNull final ViewHolder genericHolder) {
         mTypeAdapterHandler.getBinderForType(genericHolder.getItemViewType()).onDetach(genericHolder);
     }
 
@@ -101,12 +99,12 @@ public final class MultiTypeAdapter extends RecyclerView.Adapter<ViewHolder> {
     }
 
     @Override
-    public void onAttachedToRecyclerView(final RecyclerView recyclerView) {
+    public void onAttachedToRecyclerView(@NonNull final RecyclerView recyclerView) {
         mRecyclerView = recyclerView;
     }
 
     @Override
-    public void onDetachedFromRecyclerView(final RecyclerView recyclerView) {
+    public void onDetachedFromRecyclerView(@NonNull final RecyclerView recyclerView) {
         mRecyclerView = null;
     }
 

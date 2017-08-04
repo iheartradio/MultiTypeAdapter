@@ -5,10 +5,6 @@ import android.support.v7.widget.RecyclerView;
 
 import com.iheartradio.heterogeneousadapter.interfaces.SpanHandler;
 
-/**
- * Created by Jonathan Muller on 4/27/17.
- */
-
 public class GridLayoutSpanHandler implements SpanHandler {
 
     private final MultiTypeAdapter mAdapter;

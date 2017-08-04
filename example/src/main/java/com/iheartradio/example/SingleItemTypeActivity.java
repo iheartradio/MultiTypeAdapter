@@ -18,7 +18,7 @@ public class SingleItemTypeActivity extends BaseActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
 
-        List<LowerCaseStringData> twoDataList = new ArrayList<>();
+        List<? super Object> twoDataList = new ArrayList<>();
         twoDataList.add(new LowerCaseStringData("1"));
         twoDataList.add(new LowerCaseStringData("2"));
         twoDataList.add(new LowerCaseStringData("3"));

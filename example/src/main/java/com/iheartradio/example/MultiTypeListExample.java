@@ -21,13 +21,13 @@ public class MultiTypeListExample extends BaseActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
 
-        List<LowerCaseStringData> twoDataList = new ArrayList<>();
+        final List<LowerCaseStringData> twoDataList = new ArrayList<>();
         twoDataList.add(new LowerCaseStringData("1"));
         twoDataList.add(new LowerCaseStringData("2"));
         twoDataList.add(new LowerCaseStringData("3"));
         twoDataList.add(new LowerCaseStringData("4"));
 
-        MultiTypeDataHelper builder = new MultiTypeDataHelper()
+        final MultiTypeDataHelper builder = new MultiTypeDataHelper()
                 .add(twoDataList)
                 .add(new UpperCaseStringData("I'm some UpperCaseString Data"));
 
@@ -36,7 +36,7 @@ public class MultiTypeListExample extends BaseActivity {
 
     @Override
     MultiTypeAdapter onCreateAdapter() {
-        List<TypeAdapter<?, ?>> binders = new ArrayList<>();
+        final List<TypeAdapter<?, ?>> binders = new ArrayList<>();
         binders.add(new LowerCaseStringTypeAdapter());
         binders.add(new UpperCaseStringTypeAdapter());
         return new MultiTypeAdapter(binders);
@@ -48,8 +48,8 @@ public class MultiTypeListExample extends BaseActivity {
     }
 
     public void onAddButtonClicked() {
-        List<Object> listData = mAdapter.data();
-        List<Object> modifiedList = ListUtils.addRandomData(listData, new UpperCaseStringData("UpperCaseString Data"));
+        final List<Object> listData = mAdapter.data();
+        final List<Object> modifiedList = ListUtils.addRandomData(listData, new UpperCaseStringData("UpperCaseString Data"));
         mAdapter.setData(modifiedList);
     }
 }

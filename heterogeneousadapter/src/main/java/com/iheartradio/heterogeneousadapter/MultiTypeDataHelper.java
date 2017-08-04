@@ -3,13 +3,9 @@ package com.iheartradio.heterogeneousadapter;
 import java.util.ArrayList;
 import java.util.List;
 
-/**
- * Created by Jonathan Muller on 3/11/17.
- */
-
 public class MultiTypeDataHelper {
 
-    private final ArrayList<Object> mData = new ArrayList<>();
+    private final List<Object> mData = new ArrayList<>();
 
     public MultiTypeDataHelper add(final Object data) {
         mData.add(data);

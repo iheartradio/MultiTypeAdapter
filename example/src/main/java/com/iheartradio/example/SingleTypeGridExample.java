@@ -4,12 +4,9 @@ import android.graphics.Color;
 import android.os.Bundle;
 import android.support.v7.widget.GridLayoutManager;
 import android.support.v7.widget.RecyclerView;
-
 import com.iheartradio.example.data.ColorData;
 import com.iheartradio.example.typeadapters.GridItemTypeAdapter;
 import com.iheartradio.heterogeneousadapter.MultiTypeAdapter;
-import com.iheartradio.heterogeneousadapter.MultiTypeDataHelper;
-
 import java.util.ArrayList;
 import java.util.List;
 
@@ -19,7 +16,7 @@ public class SingleTypeGridExample extends BaseActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
 
-        List<ColorData> twoDataList = new ArrayList<>();
+        List<? super Object> twoDataList = new ArrayList<>();
         twoDataList.add(randomColor());
         twoDataList.add(randomColor());
         twoDataList.add(randomColor());
@@ -29,10 +26,7 @@ public class SingleTypeGridExample extends BaseActivity {
         twoDataList.add(randomColor());
         twoDataList.add(randomColor());
 
-        MultiTypeDataHelper builder = new MultiTypeDataHelper()
-                .add(twoDataList);
-
-        mAdapter.setData(builder.getData());
+        mAdapter.setData(twoDataList);
     }
 
     @Override

@@ -1,23 +1,19 @@
 package com.iheartradio.heterogeneousadapter
 
-import android.content.Context
-import android.support.v7.widget.RecyclerView
 import android.support.v7.widget.RecyclerView.ViewHolder
-import android.view.View
+import android.view.ViewGroup
+import com.nhaarman.mockito_kotlin.mock
 import org.jetbrains.spek.api.Spek
-import org.mockito.Mockito.mock
 import kotlin.test.assertEquals
-import kotlin.test.assertNull
+import kotlin.test.assertTrue
 
-/**
- * Created by Jonathan Muller on 5/10/17.
- */
 class TypeAdapterHandlerTest : Spek({
 
     describe("TypeAdapterHandler") {
+
         context("created using a single binder") {
 
-            val viewHolder = mock(ViewHolder::class.java)
+            val viewHolder = mock<ViewHolder>()
 
             val referenceBinder = object : TypeAdapter<String, ViewHolder>() {
 
@@ -25,7 +21,7 @@ class TypeAdapterHandlerTest : Spek({
                     return data is String
                 }
 
-                override fun onCreateViewHolder(inflating: InflatingContext?): ViewHolder {
+                override fun onCreateViewHolder(parent: ViewGroup?): ViewHolder {
                     return viewHolder
                 }
 
@@ -34,7 +30,6 @@ class TypeAdapterHandlerTest : Spek({
             val binderHandler = TypeAdapterHandler(listOf(referenceBinder))
 
             on("returning a list of binders") {
-
                 val myBinders = binderHandler.binders
 
                 it("should have a length of 1") {
@@ -51,6 +46,17 @@ class TypeAdapterHandlerTest : Spek({
 
                 it ("should be equal to our reference binder") {
                     assertEquals(referenceBinder.hashCode(), returnedBinder.hashCode())
+                }
+            }
+
+            on ("given an item type for a string") {
+
+                val DATA = "MyString"
+                val itemType = binderHandler.getItemTypeForData(DATA)
+
+                it ("getBinderForType should return a typeAdapter that can handle that data") {
+                    val typeAdapter = binderHandler.getBinderForType(itemType)
+                    assertTrue { typeAdapter.isMyData(DATA) }
                 }
             }
 

@@ -5,10 +5,6 @@ import android.support.v7.util.DiffUtil;
 
 import java.util.List;
 
-/**
- * Created by Jonathan Muller on 3/11/17.
- */
-
 public class TypeAdapterDiffCallback extends DiffUtil.Callback {
 
     private final List<Object> mOldData;

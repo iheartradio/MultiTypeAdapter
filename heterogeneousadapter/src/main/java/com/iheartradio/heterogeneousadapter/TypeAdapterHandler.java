@@ -7,10 +7,6 @@ import android.view.ViewGroup;
 import java.util.ArrayList;
 import java.util.List;
 
-/**
- * Created by Jonathan Muller on 4/18/17.
- */
-
 public final class TypeAdapterHandler {
 
     private final List<TypeAdapter<?, ?>> mBinders;

@@ -10,10 +10,6 @@ import com.iheartradio.heterogeneousadapter.interfaces.TriConsumer;
 
 import java.util.List;
 
-/**
- * Created by Jonathan Muller on 2/27/17.
- */
-
 class TypeAdapterImpl<D, V extends RecyclerView.ViewHolder> extends TypeAdapter<D, V> {
 
     private static final int DEFAULT_SPAN = 1;
