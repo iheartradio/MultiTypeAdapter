@@ -1,0 +1,68 @@
+apply plugin: 'com.android.library'
+
+ext {
+    bintrayRepo = 'maven'
+    bintrayName = 'multi-type-adapter'
+
+    publishedGroupId = 'com.iheartradio.android'
+    libraryName = 'MultiType Adapter'
+    artifact = 'mt-adapter'
+
+    libraryDescription = 'A recyclerview adapter easily allowing multiple items types'
+
+    siteUrl = 'https://github.com/iheartradio/MultiTypeAdapter'
+    gitUrl = 'https://github.com/iheartradio/MultiTypeAdapter.git'
+
+    libraryVersion = '0.1.0'
+
+    developerId = 'elforama'
+    developerName = 'Jonathan Muller'
+    developerEmail = 'nothing@gmail.com'
+
+    licenseName = 'The Apache Software License, Version 2.0'
+    licenseUrl = 'http://www.apache.org/licenses/LICENSE-2.0.txt'
+    allLicenses = ["Apache-2.0"]
+}
+
+android {
+    compileSdkVersion 25
+    buildToolsVersion "25.0.1"
+
+    defaultConfig {
+        minSdkVersion 14
+        targetSdkVersion 25
+        versionCode 1
+        versionName "1.0"
+
+        testInstrumentationRunner "android.support.test.runner.AndroidJUnitRunner"
+
+    }
+    buildTypes {
+        release {
+            minifyEnabled false
+            proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.pro'
+        }
+    }
+}
+
+dependencies {
+    compile fileTree(dir: 'libs', include: ['*.jar'])
+    compile 'com.android.support:recyclerview-v7:25.3.1'
+
+    // Tests
+    testCompile 'junit:junit:4.12'
+    testCompile 'org.mockito:mockito-core:2.8.47'
+    androidTestCompile('com.android.support.test.espresso:espresso-core:2.2.2', {
+        exclude group: 'com.android.support', module: 'support-annotations'
+    })
+}
+
+repositories {
+    mavenCentral()
+    maven {
+        url "http://repository.jetbrains.com/all"
+    }
+}
+
+apply from: 'https://raw.githubusercontent.com/nuuneoi/JCenter/master/installv1.gradle'
+apply from: 'https://raw.githubusercontent.com/nuuneoi/JCenter/master/bintrayv1.gradle'
