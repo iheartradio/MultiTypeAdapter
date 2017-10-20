@@ -103,7 +103,7 @@ Items items = Items();
 items.add("Item 1");
 items.add("Item 2");
 items.add("Item 3");
-adapter.setData(items.get());
+adapter.setData(items);
 
 ````
 
