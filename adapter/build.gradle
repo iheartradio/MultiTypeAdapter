@@ -13,7 +13,7 @@ ext {
     siteUrl = 'https://github.com/iheartradio/MultiTypeAdapter'
     gitUrl = 'https://github.com/iheartradio/MultiTypeAdapter.git'
 
-    libraryVersion = '0.1.0'
+    libraryVersion = '0.1.1'
 
     developerId = 'elforama'
     developerName = 'Jonathan Muller'
