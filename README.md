@@ -28,7 +28,7 @@ adapter can easily be constructed using Items.
 
 #### Gradle:
 ````
-compile 'com.iheartradio.android:mt-adapter:0.1.0'
+compile 'com.iheartradio.android:mt-adapter:0.1.1'
 ````
 
 ## Usage:
