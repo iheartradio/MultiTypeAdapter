@@ -257,7 +257,7 @@ public class TypeAdapterFactory {
                                      spanSupplier);
     }
 
-    private static <V, D> TriConsumer<V, D, List<Object>> toTriConsumer(@Nullable final BiConsumer<? super V, ? super D> biConsumer) {
+    static <V, D> TriConsumer<V, D, List<Object>> toTriConsumer(@Nullable final BiConsumer<? super V, ? super D> biConsumer) {
         return new TriConsumer<V, D, List<Object>>() {
             @Override
             public void invoke(final V v, final D d, final List<Object> objects) {
