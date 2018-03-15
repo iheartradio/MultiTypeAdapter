@@ -85,7 +85,7 @@ public final class MultiTypeAdapter extends RecyclerView.Adapter<ViewHolder> {
      * @param data
      */
     public void setData(@NonNull final List<Object> data) {
-        setData(data, true);
+        setData(data, false);
     }
 
     /**
@@ -94,7 +94,7 @@ public final class MultiTypeAdapter extends RecyclerView.Adapter<ViewHolder> {
      * @param items
      */
     public void setData(@NonNull final Items items) {
-        setData(items.get(), true);
+        setData(items.get(), false);
     }
 
     /**
@@ -222,6 +222,10 @@ public final class MultiTypeAdapter extends RecyclerView.Adapter<ViewHolder> {
         } else {
             return false;
         }
+    }
+
+    boolean areContentsTheSame(final Object data1, final Object data2) {
+        return getTypeAdapterForData(data1).areContentsSame(data1, data2);
     }
 
     Object getChangePayload(final Object oldData, final Object newData) {

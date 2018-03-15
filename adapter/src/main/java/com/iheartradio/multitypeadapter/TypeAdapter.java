@@ -24,28 +24,28 @@ public abstract class TypeAdapter<D, V extends RecyclerView.ViewHolder> {
      * @param data
      * @return true if data is managed by this TypeAdapter
      */
-    public abstract boolean isMyData(final Object data);
+    public abstract boolean isMyData(@NonNull final Object data);
 
     /**
      * @param parent
      * @return ViewHolder of type V
      */
-    public abstract V onCreateViewHolder(final ViewGroup parent);
+    public abstract V onCreateViewHolder(@NonNull final ViewGroup parent);
 
     /**
      *
      * @param viewHolder
      * @param data to be bound to the viewholder
      */
-    public void onBindViewHolder(final V viewHolder, final D data) { }
+    public void onBindViewHolder(@NonNull final V viewHolder, @NonNull final D data) { }
 
-    public void onBindViewHolder(final V viewHolder, final D data, final List<Object> payloads) {
+    public void onBindViewHolder(@NonNull final V viewHolder, @NonNull final D data, final List<Object> payloads) {
         onBindViewHolder(viewHolder, data);
     }
 
-    public void onAttach(final V view) { }
+    public void onAttach(@NonNull final V view) { }
 
-    public void onDetach(final V view) { }
+    public void onDetach(@NonNull final V view) { }
 
     /**
      * Used to determine the span for this data
@@ -61,11 +61,21 @@ public abstract class TypeAdapter<D, V extends RecyclerView.ViewHolder> {
      * @param data2
      * @return
      */
-    public boolean isDataEqual(final D data1, final D data2) {
+    public boolean isDataEqual(@NonNull final D data1, @NonNull final D data2) {
         return false;
     }
 
-    public Object getChangePayload(final D oldData, final D newData, final Bundle diffBundle) { return null; }
+    /**
+     * Used to determine if two pieces of data have the same contents. E.g. If all fields are equal
+     * @param data1
+     * @param data2
+     * @return
+     */
+    public boolean areContentsSame(@NonNull final D data1, @NonNull final D data2) {
+        return false;
+    }
+
+    public Object getChangePayload(@NonNull final D oldData, @NonNull final D newData, final Bundle diffBundle) { return null; }
 
 
 

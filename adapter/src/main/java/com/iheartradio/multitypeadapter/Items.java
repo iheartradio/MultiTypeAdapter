@@ -1,5 +1,7 @@
 package com.iheartradio.multitypeadapter;
 
+import android.support.annotation.NonNull;
+
 import java.util.ArrayList;
 import java.util.List;
 
@@ -9,6 +11,18 @@ import java.util.List;
 public class Items {
 
     private final List<Object> mData = new ArrayList<>();
+
+    public Items() {
+
+    }
+
+    public Items(@NonNull final List<?> data) {
+        mData.addAll(data);
+    }
+
+    public Items(@NonNull final Object data) {
+        mData.add(data);
+    }
 
     public Items add(final Object data) {
         mData.add(data);
@@ -30,7 +44,12 @@ public class Items {
         return this;
     }
 
+    @Deprecated
     public List<Object> get() {
+        return mData;
+    }
+
+    public List<Object> data() {
         return mData;
     }
 }

@@ -37,7 +37,7 @@ public class TypeAdapterDiffCallback extends DiffUtil.Callback {
 
     @Override
     public boolean areContentsTheSame(final int oldItemPosition, final int newItemPosition) {
-        return mOldData.get(oldItemPosition).equals(mNewData.get(newItemPosition));
+        return mMultiTypeAdapter.areContentsTheSame(mOldData.get(oldItemPosition), mNewData.get(newItemPosition));
     }
 
     @Nullable
