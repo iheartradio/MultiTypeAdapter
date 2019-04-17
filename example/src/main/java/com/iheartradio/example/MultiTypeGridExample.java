@@ -12,12 +12,14 @@ import com.iheartradio.example.viewholders.GenericViewholder;
 import com.iheartradio.example.viewholders.ListItemTwoViewHolder;
 import com.iheartradio.multitypeadapter.MultiTypeAdapter;
 import com.iheartradio.multitypeadapter.TypeAdapter;
-import com.iheartradio.multitypeadapter.interfaces.BiConsumer;
-import com.iheartradio.multitypeadapter.interfaces.Function1;
-import com.iheartradio.multitypeadapter.interfaces.Supplier;
 
 import java.util.ArrayList;
 import java.util.List;
+
+import kotlin.Unit;
+import kotlin.jvm.functions.Function0;
+import kotlin.jvm.functions.Function1;
+import kotlin.jvm.functions.Function2;
 
 public class MultiTypeGridExample extends BaseActivity {
 
@@ -63,16 +65,17 @@ public class MultiTypeGridExample extends BaseActivity {
                         return ListItemTwoViewHolder.create(viewGroup);
                     }
                 })
-                        .setSpanSupplier(new Supplier<Integer>() {
+                        .setSpanSupplier(new Function0<Integer>() {
                             @Override
                             public Integer invoke() {
                                 return 2;
                             }
                         })
-                        .setOnBindViewHolder(new BiConsumer<ListItemTwoViewHolder, LowerCaseStringData>() {
+                        .setOnBindViewHolder(new Function2<ListItemTwoViewHolder, LowerCaseStringData, Unit>() {
                             @Override
-                            public void invoke(final ListItemTwoViewHolder viewHolder, final LowerCaseStringData data) {
+                            public Unit invoke(final ListItemTwoViewHolder viewHolder, final LowerCaseStringData data) {
                                 viewHolder.bind(data);
+                                return Unit.INSTANCE;
                             }
                         })
                         .build();
@@ -89,10 +92,11 @@ public class MultiTypeGridExample extends BaseActivity {
                         return GenericViewholder.create(viewGroup, R.layout.grid_item);
                     }
                 })
-                        .setOnBindViewHolder(new BiConsumer<GenericViewholder, ColorData>() {
+                        .setOnBindViewHolder(new Function2<GenericViewholder, ColorData, Unit>() {
                             @Override
-                            public void invoke(final GenericViewholder viewHolder, final ColorData data) {
+                            public Unit invoke(final GenericViewholder viewHolder, final ColorData data) {
                                 viewHolder.bindColor(data);
+                                return Unit.INSTANCE;
                             }
                         })
                         .build();

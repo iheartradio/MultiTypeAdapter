@@ -6,6 +6,9 @@ import com.iheartradio.example.data.LowerCaseStringData;
 import com.iheartradio.example.viewholders.ListItemTwoViewHolder;
 import com.iheartradio.multitypeadapter.TypeAdapter;
 
+import org.jetbrains.annotations.NotNull;
+import org.jetbrains.annotations.Nullable;
+
 import java.util.List;
 
 /**
@@ -33,9 +36,9 @@ public class LowerCaseStringTypeAdapter extends TypeAdapter<LowerCaseStringData,
     }
 
     @Override
-    public void onBindViewHolder(final ListItemTwoViewHolder viewHolder,
+    public void onBindViewHolder(@NotNull final ListItemTwoViewHolder viewHolder,
                                  final LowerCaseStringData data,
-                                 final List<Object> payloads) {
+                                 @Nullable final List<?> payloads) {
         viewHolder.bind(data);
     }
 

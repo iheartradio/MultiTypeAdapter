@@ -7,6 +7,9 @@ import com.iheartradio.example.data.ColorData;
 import com.iheartradio.example.viewholders.GenericViewholder;
 import com.iheartradio.multitypeadapter.TypeAdapter;
 
+import org.jetbrains.annotations.NotNull;
+import org.jetbrains.annotations.Nullable;
+
 import java.util.List;
 
 /**
@@ -31,7 +34,9 @@ public class GridItemTypeAdapter extends TypeAdapter<ColorData, GenericViewholde
     }
 
     @Override
-    public void onBindViewHolder(final GenericViewholder viewHolder, final ColorData data, final List<Object> payloads) {
+    public void onBindViewHolder(@NotNull final GenericViewholder viewHolder,
+                                 final ColorData data,
+                                 @Nullable final List<?> payloads) {
         viewHolder.bindColor(data);
     }
 }
